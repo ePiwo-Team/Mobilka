@@ -30,5 +30,12 @@
         android:onClick="loguj"
         android:text="@string/zaloguj" />
 
+    <Button
+        android:id="@+id/zacznijRejestracjeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="rejestruj"
+        android:text="@string/zarejestrujsie" />
+
 
 </LinearLayout>

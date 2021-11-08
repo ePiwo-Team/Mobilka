@@ -3,4 +3,17 @@
     <string name="wpiszhaslo">Haslo:</string>
     <string name="wpiszlogin">Login:</string>
     <string name="zaloguj">Zaloguj</string>
+    <string name="zarejestrujsie">Zarejestruj się!</string>
+    <string name="email">e-mail:</string>
+    <string name="telefon">Numer telefonu:</string>
+    <string name="dataurodzenia">Data urodzenia:</string>
+    <string name="title_activity_register">Register</string>
+    <string name="powtorzhaslo">Powtórz Hasło:</string>
+    <string name="niezgodnehasla">Podane hasła się nie zgadzają!</string>
+    <string name="rejestracjafail">Nie udało się zarejestrować. Sprawdź podane dane</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
 </resources>

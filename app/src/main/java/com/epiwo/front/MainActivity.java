@@ -2,6 +2,7 @@ package com.epiwo.front;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -10,7 +11,6 @@ import android.widget.Toast;
 import com.epiwo.logic.User;
 import com.epiwo.network.Siec;
 
-import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,25 +23,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public void loguj(View view) {
 
-        EditText wpiszLoginEditText =  (EditText) findViewById(R.id.wpiszLoginEditText);
-        EditText wpiszHasloEditText = (EditText) findViewById(R.id.wpiszHasloEditText);
-
-
+        EditText wpiszLoginEditText = findViewById(R.id.wpiszLoginEditText);
+        EditText wpiszHasloEditText = findViewById(R.id.wpiszHasloEditText);
 
         User user = new User(wpiszLoginEditText.getText().toString(), wpiszHasloEditText.getText().toString());
         CharSequence text = "slabo";
 
-        if(user.test()) {
+        if (user.test()) {
             text = Siec.jwt;
-
         }
 
-        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(this, text, Toast.LENGTH_LONG);
         toast.show();
 
     }
 
+    public void rejestruj(View view) {
+        Intent rejestracja = new Intent(this, Register.class);
+        startActivity(rejestracja);
+    }
 }

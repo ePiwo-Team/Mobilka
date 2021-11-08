@@ -22,21 +22,17 @@ public class LoginToNet extends android.os.AsyncTask<String, String, String> {
             String returnCode = "err";
 
 
-
-
-
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("username", strings[1]);
+                jsonObject.put("email", strings[1]);
                 jsonObject.put("password", strings[2]);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+            Log.i("JSON",jsonObject.toString());
             try {
                 Siec.url = new URL(strings[0]);
                 HttpURLConnection urlConnection = (HttpURLConnection) Siec.url.openConnection();
- //               urlConnection.setRequestMethod("GET");
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setRequestProperty("Content-Type","application/json;charset=UTF-8");
                 urlConnection.setRequestProperty("Accept","application/json");
