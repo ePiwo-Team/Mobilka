@@ -32,10 +32,15 @@ public class MainActivity extends AppCompatActivity {
         CharSequence text = "slabo";
 
         if (user.test()) {
-            text = Siec.jwt;
+//            text = Siec.jwt;
+            text = Siec.echo();
+
+//            Intent meetings = new Intent(this, Profile.class);
+//            startActivity(meetings);
+
         }
 
-        Toast toast = Toast.makeText(this, text, Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.show();
 
     }

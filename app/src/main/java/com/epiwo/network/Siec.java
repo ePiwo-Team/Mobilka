@@ -9,10 +9,10 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 public class Siec {
-    public static String address = "http://20.93.142.1:8080";
+    public static String address = "http://51.83.130.232:8080";
     public static String loginURL = address+ "/api/auth/login";
     public static String registerURL = address+ "/api/user/register";
-    //public static String echoURL = address+ "/api/user/helloUser";
+    public static String echoURL = address+ "/api/user/hellouser";
     public static URL url;
     public static String jwt;
 
@@ -60,7 +60,7 @@ public class Siec {
         return false;
     }
 
-  /*  public static String echo() {
+    public static String echo() {
         EchoToNet echo = new EchoToNet();
         String output = null;
 
@@ -75,6 +75,6 @@ public class Siec {
 
         return output;
 
-    }*/
+    }
 
 }

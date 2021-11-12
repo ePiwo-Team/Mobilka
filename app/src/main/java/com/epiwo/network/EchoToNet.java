@@ -24,17 +24,16 @@ public class EchoToNet extends AsyncTask<String,String,String> {
         try {
             Siec.url = new URL(strings[0]);
             HttpURLConnection urlConnection = (HttpURLConnection) Siec.url.openConnection();
-            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestProperty("accept", "*/*");
             urlConnection.setRequestProperty("Content-Type","application/json;charset=UTF-8");
-            urlConnection.setRequestProperty("Authorization",strings[1]);
-            urlConnection.setDoOutput(true);
+            urlConnection.setRequestProperty("Authorization","Bearer "+strings[1]);
+            urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
             Log.i("STATUS", String.valueOf(urlConnection.getResponseCode()));
             Log.i("MSG" , urlConnection.getResponseMessage());
 
             returnCode = Integer.toString(urlConnection.getResponseCode());
-
 
 
             if (urlConnection.getResponseCode() == 200) {
