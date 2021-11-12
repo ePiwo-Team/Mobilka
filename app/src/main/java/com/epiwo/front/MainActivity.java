@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 //            Intent meetings = new Intent(this, Profile.class);
 //            startActivity(meetings);
 
+        }else {
+            text  = "http: " + Integer.toString(Siec.httpRc);
         }
 
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
