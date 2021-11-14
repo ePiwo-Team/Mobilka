@@ -32,11 +32,10 @@ public class MainActivity extends AppCompatActivity {
         CharSequence text = "slabo";
 
         if (user.test()) {
-//            text = Siec.jwt;
             text = Siec.echo();
 
-//            Intent meetings = new Intent(this, Profile.class);
-//            startActivity(meetings);
+            Intent meetings = new Intent(this, Meetings.class);
+            startActivity(meetings);
 
         }else {
             text  = "http: " + Integer.toString(Siec.httpRc);

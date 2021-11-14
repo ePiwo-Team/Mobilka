@@ -1,7 +1,6 @@
 package com.epiwo.network;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.epiwo.logic.User;
 
@@ -9,7 +8,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 public class Siec {
@@ -17,6 +15,8 @@ public class Siec {
     public static String loginURL = address+ "/api/auth/login";
     public static String registerURL = address+ "/api/user/register";
     public static String echoURL = address+ "/api/user/hellouser";
+    public static String selfURL = address+ "/api/user/getself";
+    public static String updateUserURL = address+ "/api/user/modify";
     public static URL url;
     public static String jwt;
     final public static String POST = "POST";
@@ -29,6 +29,7 @@ public class Siec {
             RequestToNet backgroundLogin = new RequestToNet();
 
             String output = null;
+            jwt = null;
 
             JSONObject jsonObject = new JSONObject();
             try {
@@ -68,7 +69,7 @@ public class Siec {
         try {
             jsonRegbject.put("email", registrationData.email);
             jsonRegbject.put("password", registrationData.password);
-            jsonRegbject.put("name", registrationData.login);
+            jsonRegbject.put("name", registrationData.name);
             jsonRegbject.put("phoneNumber", registrationData.phone);
             jsonRegbject.put("birthDate", registrationData.birthDate);
         } catch (JSONException e) {
@@ -82,7 +83,7 @@ public class Siec {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        if(Siec.httpRc == 200)
+        if((Siec.httpRc == 200) || (Siec.httpRc == 201) )
             return true;
 
         return false;
@@ -104,6 +105,63 @@ public class Siec {
         return output;
 
     }
+
+    public static void getSelf(User user) {
+        RequestToNet backgroundSelf = new RequestToNet();
+        String output = null;
+        String input = null;
+        try {
+            output = backgroundSelf.execute(Siec.selfURL, Siec.GET, input).get();
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (Siec.httpRc == 200) {
+            try {
+                JSONObject jsonUser = new JSONObject(output);
+                Log.i("userData", output);
+                user.email = jsonUser.getString("email");
+                user.name = jsonUser.getString("name");
+                user.phone = jsonUser.getString("phoneNumber");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static boolean updateUserData( User updateUserData){
+
+        RequestToNet backgroundRegister = new RequestToNet();
+        String output = null;
+        String input = null;
+
+        JSONObject jsonUpdateUserObj = new JSONObject();
+        try {
+            jsonUpdateUserObj.put("email", updateUserData.email);
+            jsonUpdateUserObj.put("password", updateUserData.password);
+            jsonUpdateUserObj.put("name", updateUserData.name);
+            jsonUpdateUserObj.put("phoneNumber", updateUserData.phone);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            input = backgroundRegister.execute(Siec.updateUserURL, Siec.PUT, jsonUpdateUserObj.toString()).get();
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(Siec.httpRc == 200)
+            return true;
+
+        return false;
+    }
+
 
 
 }

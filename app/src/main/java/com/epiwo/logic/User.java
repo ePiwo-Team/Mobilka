@@ -4,28 +4,31 @@ package com.epiwo.logic;
 import com.epiwo.network.Siec;
 
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 
 public class User {
 
+    public static User me;
+
     Boolean activeAuth = false;
-    public String login;
+    public String name;
     public String password;
     public String phone;
     public String birthDate;
     public String email;
 
 
-    public User(String login, String password, String phone, String birthDate, String email) {
-        this.login = login;
+    public User(String name, String password, String phone, String birthDate, String email) {
+        this.name = name;
         this.password = password;
         this.phone = phone;
         this.birthDate = birthDate;
         this.email = email;
+        me=this;
     }
 
-    public User(String login, String password) {
-        activeAuth = Siec.loginNet(login, password);
+    public User(String name, String password) {
+        activeAuth = Siec.loginNet(name, password);
+        me = this;
     }
 
     public Boolean test(){
@@ -39,6 +42,11 @@ public class User {
     public Boolean register(){
         return Siec.register(this);
 
+
+    }
+
+    public void refreshUser(){
+        Siec.getSelf(this);
 
     }
 }

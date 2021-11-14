@@ -13,6 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ingeniero"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".Meetings"
+            android:label="@string/title_activity_meetings"
+            android:theme="@style/Theme.Ingeniero.NoActionBar"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
