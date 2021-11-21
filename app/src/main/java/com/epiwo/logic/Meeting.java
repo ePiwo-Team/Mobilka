@@ -5,7 +5,11 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.epiwo.network.Siec;
+
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -18,8 +22,7 @@ public class Meeting {
     private String desc;
     private String place;
     private List<String> foods;
-    private OffsetDateTime meetingDate;
-
+    private String meetingDate;
     static Meeting[] meetings = null;
 
     public static String getName(int pos) {
@@ -34,7 +37,7 @@ public class Meeting {
         return place;
     }
 
-    public OffsetDateTime getMeetingDate() {
+    public String getMeetingDate() {
         return meetingDate;
     }
 
@@ -45,15 +48,28 @@ public class Meeting {
     }
 
 
-
-
     public static void update(){
+        meetings=null;
 
-        Meeting[] tmp = {new Meeting("nazwa"),new Meeting("nazwa1"),new Meeting("nazwa2")};
 
-        meetings = tmp;
+        Siec.getSelfMeetings();
 
         Log.i("#spotkan: ", String.valueOf(meetings.length));
+    }
+
+    public static void addMeeting(Meeting item){
+        if (meetings == null) {
+            meetings = new Meeting[1];
+            meetings[0] = item;
+        }
+        else {
+            List<Meeting> arrlist
+                    = new ArrayList<Meeting>(
+                    Arrays.asList(meetings));
+
+            arrlist.add(item);
+            meetings = arrlist.toArray(new Meeting[0]);
+        }
     }
 
 
@@ -62,12 +78,12 @@ public class Meeting {
     }
 
 
-    public Meeting(long id, String name, String desc, /*List<String> foods,*/ String localization, OffsetDateTime meetingDate) {
+    public Meeting(long id, String name, String desc, /*List<String> foods,*/ String place, String meetingDate) {
         this.id = id;
         this.name = name;
         this.desc = desc;
        // this.foods = foods;
-        this.place = localization;
+        this.place = place;
         this.meetingDate = meetingDate;
     }
 
