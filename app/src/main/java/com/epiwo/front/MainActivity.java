@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         if (user.test()) {
             text = Siec.echo();
 
-            Intent meetings = new Intent(this, Meetings.class);
+            Intent meetings = new Intent(this, MainPage.class);
             startActivity(meetings);
 
         }else {

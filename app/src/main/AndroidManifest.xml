@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Ingeniero"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".Meetings"
+            android:name=".MainPage"
             android:label="@string/title_activity_meetings"
             android:theme="@style/Theme.Ingeniero.NoActionBar"></activity>
         <activity android:name=".MainActivity">

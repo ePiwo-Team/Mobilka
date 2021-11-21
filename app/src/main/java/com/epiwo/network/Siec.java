@@ -1,12 +1,9 @@
 package com.epiwo.network;
 
 import android.util.Log;
-
 import com.epiwo.logic.User;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
@@ -38,7 +35,6 @@ public class Siec {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
             try {
                 output = backgroundLogin.execute(Siec.loginURL, Siec.POST, jsonObject.toString()).get();
             } catch (ExecutionException e) {
@@ -90,11 +86,11 @@ public class Siec {
     }
 
     public static String echo() {
-        RequestToNet backgroundecho = new RequestToNet();
+        RequestToNet backGroundEcho = new RequestToNet();
         String output = null;
         String input = null;
         try {
-            output = backgroundecho.execute(Siec.echoURL,Siec.GET, input).get();
+            output = backGroundEcho.execute(Siec.echoURL,Siec.GET, input).get();
 
         } catch (ExecutionException e) {
             e.printStackTrace();
