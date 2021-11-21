@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.epiwo.logic.Meeting;
 import com.epiwo.logic.User;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.net.URL;
@@ -186,28 +188,49 @@ public class Siec {
         httpRc= 200;
         if (Siec.httpRc == 200) {
 
-            JSONObject jsonTestObj = new JSONObject();
             try {
+                JSONObject jsonTestObj = new JSONObject();
+
                 jsonTestObj.put("id",40);
                 jsonTestObj.put("name", "nazwaraz");
                 jsonTestObj.put("desc", "opis spotkania");
                 jsonTestObj.put("place", "domek");
                 jsonTestObj.put("meetingDate", "2021-12-12");
+
+                JSONArray jsonTestArr = new JSONArray();
+                jsonTestArr.put(jsonTestObj);
+
+                jsonTestObj = new JSONObject();
+
+                jsonTestObj.put("id",40);
+                jsonTestObj.put("name", "drugie spotkanie");
+                jsonTestObj.put("desc", "opis spotkania2");
+                jsonTestObj.put("place", "wdk");
+                jsonTestObj.put("meetingDate", "2021-12-12");
+
+                jsonTestArr.put(jsonTestObj);
+
+                output = jsonTestArr.toString();
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
+            Log.i("userData", output);
+
             try {
-//                JSONObject jsonMeeting = new JSONObject(output);
-//                Log.i("userData", output);
-                JSONObject jsonMeeting = jsonTestObj;
-                Meeting.addMeeting(new Meeting(
-                   jsonMeeting.getInt("id"),
-                   jsonMeeting.getString("name"),
-                   jsonMeeting.getString("desc"),
-                   jsonMeeting.getString("place"),
-                   jsonMeeting.getString("meetingDate")
-                ));
+                JSONArray jsonLista = new JSONArray(output);
+
+                for (int i=0; i<jsonLista.length(); ++i) {
+                    JSONObject jsonMeeting = jsonLista.getJSONObject(i);
+                    Meeting.addMeeting(new Meeting(
+                            jsonMeeting.getInt("id"),
+                            jsonMeeting.getString("name"),
+                            jsonMeeting.getString("desc"),
+                            jsonMeeting.getString("place"),
+                            jsonMeeting.getString("meetingDate")
+                    ));
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
