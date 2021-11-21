@@ -13,22 +13,26 @@ import com.epiwo.logic.Meeting;
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MyMeetingViewHolder> {
 
-
-
     @NonNull
     @Override
     public MyMeetingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         return new MyMeetingViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.meeting_adapter,parent,false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyMeetingViewHolder holder, int position) {
-        holder.textView.setText(Meeting.meetings[position].toString());
+        holder.textView.setText(Meeting.getName(position));
     }
 
     @Override
     public int getItemCount() {
-        return Meeting.meetings.length;
+/*
+        if(Meeting.meetings == null)
+            return 0;
+        else
+ */
+        return Meeting.count();
     }
 
     static class MyMeetingViewHolder extends RecyclerView.ViewHolder{

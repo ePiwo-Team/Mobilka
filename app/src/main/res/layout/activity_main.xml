@@ -37,5 +37,12 @@
         android:onClick="rejestruj"
         android:text="@string/zarejestrujsie" />
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="adminLoguj"
+        android:text="loguj z admina" />
+
 
 </LinearLayout>

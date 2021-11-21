@@ -46,6 +46,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void adminLoguj(View view){
+        User user = new User("admin@admin.pl","admin1");
+
+        CharSequence text = "slabo";
+
+        if (user.test()) {
+            text = Siec.echo();
+
+            Intent meetings = new Intent(this, MainPage.class);
+            startActivity(meetings);
+
+        }else {
+            text  = "http: " + Integer.toString(Siec.httpRc);
+        }
+
+        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        toast.show();
+
+
+
+    }
+
     public void rejestruj(View view) {
         Intent rejestracja = new Intent(this, Register.class);
         startActivity(rejestracja);
