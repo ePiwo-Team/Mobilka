@@ -3,22 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:background="@color/glowny_pomarancz"
+    android:orientation="vertical"
     tools:context=".MainActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="321dp"
+        android:onClick="adminLoguj"
+        app:srcCompat="@drawable/ic_title_main" />
 
     <EditText
         android:id="@+id/wpiszLoginEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/email" />
+        android:hint="@string/email"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/wpiszHasloEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:ems="10"
         android:hint="@string/wpiszhaslo"
         android:inputType="textPassword" />
@@ -27,22 +38,19 @@
         android:id="@+id/zalogujButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/white"
         android:onClick="loguj"
         android:text="@string/zaloguj" />
 
-    <Button
-        android:id="@+id/zacznijRejestracjeButton"
+    <TextView
+        android:id="@+id/textRejestruj"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:onClick="rejestruj"
-        android:text="@string/zarejestrujsie" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="adminLoguj"
-        android:text="loguj z admina" />
-
+        android:text="@string/zarejestrujsie"
+        android:textAlignment="center" />
 
 </LinearLayout>

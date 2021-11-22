@@ -12,6 +12,11 @@
     <string name="niezgodnehasla">Podane hasła się nie zgadzają!</string>
     <string name="rejestracjafail">Nie udało się zarejestrować. Sprawdź podane dane</string>
     <string name="update">Zaktualizuj</string>
+    <string name="menu_logout">Wyloguj</string>
+    <string name="destroy_user">Usuń Konto</string>
+
+    <string name="place_hint">Gdzie:</string>
+    <string name="desc_hint">Co:</string>
 
 
     <string name="menu_home">Spotkania</string>

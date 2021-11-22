@@ -22,7 +22,9 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MyMeetin
 
     @Override
     public void onBindViewHolder(@NonNull MyMeetingViewHolder holder, int position) {
-        holder.textView.setText(Meeting.getName(position));
+        holder.meetingName.setText(Meeting.getName(position));
+        holder.meetingPlace.setText(Meeting.getPlace(position));
+        holder.meetingDesc.setText(Meeting.getDesc(position));
     }
 
     @Override
@@ -36,11 +38,15 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MyMeetin
     }
 
     static class MyMeetingViewHolder extends RecyclerView.ViewHolder{
-        TextView textView;
+        TextView meetingName;
+        TextView meetingDesc;
+        TextView meetingPlace;
 
         public MyMeetingViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView=itemView.findViewById(R.id.meeting_name);
+            meetingDesc =itemView.findViewById(R.id.meeting_desc);
+            meetingPlace =itemView.findViewById(R.id.meeting_place);
+            meetingName =itemView.findViewById(R.id.meeting_name);
         }
     }
 }

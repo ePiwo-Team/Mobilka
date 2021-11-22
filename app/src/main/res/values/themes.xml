@@ -16,7 +16,12 @@
 
     <style name="Theme.Ingeniero.NoActionBar">
         <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Button.orange" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">@color/glowny_pomarancz</item>
     </style>
 
     <style name="Theme.Ingeniero.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

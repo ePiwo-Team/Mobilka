@@ -3,12 +3,9 @@ package com.epiwo.front;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.epiwo.logic.User;
-import com.epiwo.network.Siec;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -44,7 +41,7 @@ public class MainPage extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_settings, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_settings, R.id.nav_logout)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

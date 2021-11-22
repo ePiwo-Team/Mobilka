@@ -120,5 +120,7 @@
         android:id="@+id/buttonUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/update" />
+        android:text="@string/update"
+        android:backgroundTint="@color/glowny_pomarancz"
+        android:textColor="@color/black"/>
 </LinearLayout>

@@ -29,16 +29,16 @@ public class Meeting {
         return meetings[pos].name;
     }
 
-    public String getDesc() {
-        return desc;
+    public static String getDesc(int pos) {
+        return meetings[pos].desc;
     }
 
-    public String getPlace() {
-        return place;
+    public static String getPlace(int pos) {
+        return meetings[pos].place;
     }
 
-    public String getMeetingDate() {
-        return meetingDate;
+    public static String getMeetingDate(int pos) {
+        return meetings[pos].meetingDate;
     }
 
     public static int count(){
