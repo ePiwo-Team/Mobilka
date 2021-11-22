@@ -4,10 +4,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.epiwo.front.MainPage;
 import com.epiwo.front.R;
 import com.epiwo.logic.Meeting;
 
@@ -25,6 +27,15 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MyMeetin
         holder.meetingName.setText(Meeting.getName(position));
         holder.meetingPlace.setText(Meeting.getPlace(position));
         holder.meetingDesc.setText(Meeting.getDesc(position));
+
+        // Osluga kliku na meetingu
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast toast = Toast.makeText(MainPage.test, "Element: "+Meeting.getName(position), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
     }
 
     @Override

@@ -22,9 +22,14 @@ public class MainPage extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
+    public static MainPage test; // Tymczasowy test onClicka
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        test = this; // Tymczasowy test onClicka
+
         setContentView(R.layout.activity_meetings);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
