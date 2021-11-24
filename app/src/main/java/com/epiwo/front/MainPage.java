@@ -5,11 +5,14 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
 
+import com.epiwo.front.ui.chat.ChatFragment;
+import com.epiwo.front.ui.settings.SettingsFragment;
 import com.epiwo.logic.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -22,13 +25,9 @@ public class MainPage extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
-    public static MainPage test; // Tymczasowy test onClicka
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        test = this; // Tymczasowy test onClicka
 
         setContentView(R.layout.activity_meetings);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -46,7 +45,7 @@ public class MainPage extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_settings, R.id.nav_logout)
+                R.id.nav_home,R.id.nav_chat, R.id.nav_settings, R.id.nav_logout)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -54,8 +53,6 @@ public class MainPage extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         User.me.refreshUser();
-
-
     }
 
     @Override
@@ -77,6 +74,5 @@ public class MainPage extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
 
 }

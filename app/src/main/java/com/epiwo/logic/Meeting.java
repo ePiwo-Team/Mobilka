@@ -23,7 +23,11 @@ public class Meeting {
     private String place;
     private List<String> foods;
     private String meetingDate;
+    private Chat chat;
+
     static Meeting[] meetings = null;
+
+    public static long getID(int poz) { return meetings[poz].id; }
 
     public static String getName(int pos) {
         return meetings[pos].name;
@@ -40,6 +44,8 @@ public class Meeting {
     public static String getMeetingDate(int pos) {
         return meetings[pos].meetingDate;
     }
+
+    public static Chat getChat(int poz) { return meetings[poz].chat; }
 
     public static int count(){
         if (meetings==null)
@@ -73,11 +79,6 @@ public class Meeting {
     }
 
 
-    public Meeting(String name) {
-        this.name = name;
-    }
-
-
     public Meeting(long id, String name, String desc, /*List<String> foods,*/ String place, String meetingDate) {
         this.id = id;
         this.name = name;
@@ -85,6 +86,7 @@ public class Meeting {
        // this.foods = foods;
         this.place = place;
         this.meetingDate = meetingDate;
+        this.chat = new Chat(name,id);
     }
 
 }
