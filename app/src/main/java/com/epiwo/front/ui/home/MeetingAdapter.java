@@ -32,10 +32,12 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MyMeetin
         holder.meetingPlace.setText(Meeting.getPlace(position));
         holder.meetingDesc.setText(Meeting.getDesc(position));
 
+
         // Osluga kliku na meetingu
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Chat.current = Meeting.getChat(position);
                 Navigation.findNavController(v).navigate(R.id.nav_chat);
             }

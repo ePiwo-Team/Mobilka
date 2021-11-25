@@ -24,6 +24,7 @@ import androidx.appcompat.widget.Toolbar;
 public class MainPage extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    static public  FloatingActionButton fab=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class MainPage extends AppCompatActivity {
         setContentView(R.layout.activity_meetings);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

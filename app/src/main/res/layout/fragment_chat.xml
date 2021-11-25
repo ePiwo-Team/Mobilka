@@ -5,11 +5,34 @@
     android:layout_height="match_parent"
     tools:context=".ui.chat.ChatFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/test_tekst"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/test_tekst"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="To jest tytul. Jego trzeba stad wyniesc, a i tak w kodzie podmienie ten tekst" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:visibility="visible" >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/test_buton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="To jest miejsce na klikawke i wysylanie komunikatow" />
+    </LinearLayout>
 
 </FrameLayout>

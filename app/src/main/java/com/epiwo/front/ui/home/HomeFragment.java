@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.epiwo.front.MainPage;
 import com.epiwo.front.R;
 import com.epiwo.front.ui.chat.ChatFragment;
 import com.epiwo.logic.Meeting;
@@ -26,8 +27,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        Meeting.update();
-
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         RecyclerView recyclerView = root.findViewById(R.id.meetings_list);
@@ -35,6 +34,21 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(new MeetingAdapter());
 
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Meeting.update();
+        MainPage.fab.show();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        MainPage.fab.hide();
     }
 
 }

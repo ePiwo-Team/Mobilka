@@ -7,9 +7,9 @@ public class Chat {
 
     static int test_gen=1;
 
-    public static Chat current;
+    public static Chat current=null;
 
-    class Balloon {
+    public class Balloon {
         String usr;  // Teraz jest nazwa ale moze trzeba zrobic obiekt User?
         String text; // Na poczatek tekst. Rozwojowo moze tu byc wszystko.
 
@@ -30,6 +30,8 @@ public class Chat {
     public Chat (String name, long meetingID) {
         this.name = name;
         this.meetingID = meetingID;
+
+        getAllBalloons();
     }
 
     public String getName() {
@@ -43,15 +45,18 @@ public class Chat {
             Balloon tmp = new Balloon(((i%2==0)?"Jozef":"Rys"),"powiedzial "+Integer.toString(i));
             talk.add(tmp);
         }
-
         ++ test_gen;
     }
 
     public void getNewBalloons() {
 
+        // Testowe budowanie gadki
+        Balloon tmp = new Balloon(((test_gen%2==0)?"Jozef":"Rys"),"dodal "+Integer.toString(test_gen));
+        talk.add(tmp);
+        ++ test_gen;
     }
 
     public void sendBalloon(String text, String usr) {
-
+        talk.add(new Balloon(usr,text));
     }
 }
