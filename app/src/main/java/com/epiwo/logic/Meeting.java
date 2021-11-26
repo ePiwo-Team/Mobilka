@@ -2,18 +2,11 @@ package com.epiwo.logic;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.epiwo.network.Siec;
 
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class Meeting {
 
@@ -22,7 +15,7 @@ public class Meeting {
     private String desc;
     private String place;
     private List<String> foods;
-    private String meetingDate;
+    private String dateAndTime;
     static Meeting[] meetings = null;
 
     public static String getName(int pos) {
@@ -38,7 +31,7 @@ public class Meeting {
     }
 
     public static String getMeetingDate(int pos) {
-        return meetings[pos].meetingDate;
+        return meetings[pos].dateAndTime;
     }
 
     public static int count(){
@@ -78,13 +71,13 @@ public class Meeting {
     }
 
 
-    public Meeting(long id, String name, String desc, /*List<String> foods,*/ String place, String meetingDate) {
+    public Meeting(long id, String name, String desc, /*List<String> foods,*/ String place, String dateAndTime) {
         this.id = id;
         this.name = name;
         this.desc = desc;
        // this.foods = foods;
         this.place = place;
-        this.meetingDate = meetingDate;
+        this.dateAndTime = dateAndTime;
     }
 
 }

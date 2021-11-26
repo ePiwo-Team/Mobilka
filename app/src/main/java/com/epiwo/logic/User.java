@@ -49,4 +49,13 @@ public class User {
         Siec.getSelf(this);
 
     }
+
+    public void nullUserData(){
+        name = null;
+        phone = null;
+        email = null;
+        password = null;
+        Siec.jwt = null;
+    }
+
 }

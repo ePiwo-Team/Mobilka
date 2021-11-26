@@ -20,17 +20,18 @@ public class Siec {
     public static String echoURL = address+ "/api/user/hellouser";
     public static String selfURL = address+ "/api/user/getself";
     public static String updateUserURL = address+ "/api/user/modify";
-
+    public static String deleteSelfURL = address+ "/api/user/delete";
     //spotkania
 
-    public static String getSelfMeetingURL = address+ "/uzupelnic";
-
+    public static String getSelfMeetingURL = address+ "/api/meeting/get_own";
+    public static String createMeeting = address+ "/meeting/new_meeting";
 
     public static URL url;
     public static String jwt;
     final public static String POST = "POST";
     final public static String GET = "GET";
     final public static String PUT = "PUT";
+    final public static String DELETE ="DELETE";
     public static int httpRc = 418;
 
     public static boolean loginNet(String login, String password) {
@@ -114,6 +115,22 @@ public class Siec {
 
     }
 
+    public static String deleteSelfUser() {
+        RequestToNet backGroundEcho = new RequestToNet();
+        String output = null;
+        String input = null;
+        try {
+            output = backGroundEcho.execute(Siec.deleteSelfURL,Siec.DELETE, input).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return output;
+
+    }
+
 
     public static void getSelf(User user) {
         RequestToNet backgroundSelf = new RequestToNet();
@@ -175,7 +192,7 @@ public class Siec {
         RequestToNet backgroundSelf = new RequestToNet();
         String output = null;
         String input = null;
-  /*      try {
+        try {
             output = backgroundSelf.execute(Siec.getSelfMeetingURL, Siec.GET, input).get();
 
         } catch (ExecutionException e) {
@@ -183,12 +200,12 @@ public class Siec {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-*/
-        //tymczasowe, podmienic
-        httpRc= 200;
-        if (Siec.httpRc == 200) {
 
-            try {
+        //tymczasowe, podmienic
+       // httpRc= 200;
+        if (Siec.httpRc == 200) {
+       //mój mock spotkań
+/*            try {
                 JSONObject jsonTestObj = new JSONObject();
 
                 jsonTestObj.put("id",40);
@@ -215,7 +232,7 @@ public class Siec {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+*/
             Log.i("userData", output);
 
             try {
@@ -226,9 +243,9 @@ public class Siec {
                     Meeting.addMeeting(new Meeting(
                             jsonMeeting.getInt("id"),
                             jsonMeeting.getString("name"),
-                            jsonMeeting.getString("desc"),
+                            jsonMeeting.getString("description"),
                             jsonMeeting.getString("place"),
-                            jsonMeeting.getString("meetingDate")
+                            jsonMeeting.getString("dateAndTime")
                     ));
                 }
             } catch (JSONException e) {
@@ -236,4 +253,9 @@ public class Siec {
             }
         }
     }
+
+
+
+
+
 }
