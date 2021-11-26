@@ -49,7 +49,7 @@
         android:layout_marginHorizontal="20dp"
         android:ems="10"
         android:hint="@string/dataurodzenia"
-        android:inputType="date" />
+        android:inputType="phone" />
 
     <EditText
         android:id="@+id/editTextTextPassword"

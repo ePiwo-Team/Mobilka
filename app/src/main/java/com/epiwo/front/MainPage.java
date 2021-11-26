@@ -1,5 +1,6 @@
 package com.epiwo.front;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -25,11 +26,14 @@ public class MainPage extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     static public  FloatingActionButton fab=null;
+    static public MainPage page;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        page = this;
         setContentView(R.layout.activity_meetings);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -37,6 +41,8 @@ public class MainPage extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent mainActivity = new Intent(page , AddMeetingActivity.class);
+                startActivity(mainActivity);
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }

@@ -7,17 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
+import com.epiwo.front.MainActivity;
 import com.epiwo.front.R;
-import com.epiwo.front.Register;
 import com.epiwo.logic.User;
 import com.epiwo.network.Siec;
 
@@ -30,6 +26,7 @@ public class SettingsFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
 
+        Button buttonDestroy = root.findViewById(R.id.button_destroy);
         Button updateButton = root.findViewById(R.id.buttonUpdate);
         EditText editEmail = root.findViewById(R.id.editEmail);
         EditText editName = root.findViewById(R.id.editName);
@@ -65,8 +62,22 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        buttonDestroy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Siec.deleteSelfUser();
+                user.nullUserData();
+                Intent mainActivity = new Intent(getActivity(), MainActivity.class);
+                startActivity(mainActivity);
+            }
+        });
+
+
+
+
         return root;
     }
+
 
 
 
