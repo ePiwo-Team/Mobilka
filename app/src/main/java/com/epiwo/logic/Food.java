@@ -1,5 +1,7 @@
 package com.epiwo.logic;
 
+import android.widget.ArrayAdapter;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ public class Food {
 
 
     public static List<Food> foods = new LinkedList<>();
+
 
     public static void loadFoods(){
 
@@ -35,5 +38,12 @@ public class Food {
 
     public String getName() {
         return name;
+    }
+
+    public static String[] listToArray() {
+        String [] array = new String[foods.size()];
+        for (int i = 0; i < array.length; i++)
+            array[i] = foods.get(i).getName();
+        return array;
     }
 }

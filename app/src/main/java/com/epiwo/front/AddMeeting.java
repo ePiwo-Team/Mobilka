@@ -9,20 +9,25 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.epiwo.logic.Food;
+
 
 public class AddMeeting extends AppCompatActivity {
 
     ListView listViewData;
     ArrayAdapter<String> adapter;
-    String[] arrayPeliculas = {"poz 1","poz 2", "poz 3", "poz 4"};
+    String[] foodNameArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_meeting_activity);
 
+        Food.loadFoods();
+        foodNameArray = Food.listToArray();
+
         listViewData = findViewById(R.id.listView_data);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, arrayPeliculas );
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, foodNameArray);
         listViewData.setAdapter(adapter);
 
 
