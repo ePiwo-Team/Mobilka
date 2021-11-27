@@ -23,24 +23,19 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-
-
-
     }
 
-
-
     public void loguj(View view) {
-
+        Siec.jwt = null;
         EditText wpiszLoginEditText = findViewById(R.id.wpiszLoginEditText);
         EditText wpiszHasloEditText = findViewById(R.id.wpiszHasloEditText);
 
         User user = new User(wpiszLoginEditText.getText().toString(), wpiszHasloEditText.getText().toString());
         CharSequence text = "slabo";
 
+
         if (user.test()) {
             text = Siec.echo();
-
             Intent meetings = new Intent(this, MainPage.class);
             startActivity(meetings);
 

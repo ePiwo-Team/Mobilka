@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.epiwo.front" >
+    package="com.epiwo.front">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,15 +12,13 @@
         android:roundIcon="@drawable/ic_launch_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ingeniero"
-        android:usesCleartextTraffic="true" >
-        <activity
-            android:name=".AddMeetingActivity"
-            android:exported="true" />
+        android:usesCleartextTraffic="true">
+        <activity android:name=".AddMeeting"></activity>
         <activity
             android:name=".MainPage"
             android:label="@string/title_activity_meetings"
             android:theme="@style/Theme.Ingeniero.NoActionBar" />
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

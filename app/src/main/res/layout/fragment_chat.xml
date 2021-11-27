@@ -28,11 +28,18 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
-        <TextView
-            android:id="@+id/test_buton"
+        <EditText
+            android:id="@+id/editTextNewMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="To jest miejsce na klikawke i wysylanie komunikatow" />
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/button_send_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
     </LinearLayout>
 
 </FrameLayout>

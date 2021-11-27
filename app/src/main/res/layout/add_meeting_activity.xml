@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddMeeting" >
+
+    <Button
+        android:id="@+id/button_add_meeting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="createMeeting"
+        android:text="@string/create_meeting" />
+
+    <EditText
+        android:id="@+id/editTextMeetingName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/name_hint"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/editTextMeetingDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/date_hint"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/editTextMeetingPlace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/place_hint"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/editTextMeetingDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/desc_hint"
+        android:inputType="textPersonName" />
+    <ListView
+        android:id="@+id/listView_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:choiceMode="multipleChoice"/>
+
+
+</LinearLayout>

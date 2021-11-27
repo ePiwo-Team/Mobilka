@@ -2,6 +2,7 @@ package com.epiwo.network;
 
 import android.util.Log;
 
+import com.epiwo.logic.Food;
 import com.epiwo.logic.Meeting;
 import com.epiwo.logic.User;
 
@@ -21,10 +22,12 @@ public class Siec {
     public static String selfURL = address+ "/api/user/getself";
     public static String updateUserURL = address+ "/api/user/modify";
     public static String deleteSelfURL = address+ "/api/user/delete";
-    //spotkania
 
+    //spotkania
     public static String getSelfMeetingURL = address+ "/api/meeting/get_own";
     public static String createMeeting = address+ "/meeting/new_meeting";
+    public static String getFoodList = address+ "/api/food";
+
 
     public static URL url;
     public static String jwt;
@@ -200,39 +203,8 @@ public class Siec {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        //tymczasowe, podmienic
-       // httpRc= 200;
         if (Siec.httpRc == 200) {
-       //mój mock spotkań
-/*            try {
-                JSONObject jsonTestObj = new JSONObject();
 
-                jsonTestObj.put("id",40);
-                jsonTestObj.put("name", "nazwaraz");
-                jsonTestObj.put("desc", "opis spotkania");
-                jsonTestObj.put("place", "domek");
-                jsonTestObj.put("meetingDate", "2021-12-12");
-
-                JSONArray jsonTestArr = new JSONArray();
-                jsonTestArr.put(jsonTestObj);
-
-                jsonTestObj = new JSONObject();
-
-                jsonTestObj.put("id",40);
-                jsonTestObj.put("name", "drugie spotkanie");
-                jsonTestObj.put("desc", "opis spotkania2");
-                jsonTestObj.put("place", "wdk");
-                jsonTestObj.put("meetingDate", "2021-12-12");
-
-                jsonTestArr.put(jsonTestObj);
-
-                output = jsonTestArr.toString();
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-*/
             Log.i("userData", output);
 
             try {
@@ -254,7 +226,31 @@ public class Siec {
         }
     }
 
+    public static void getFoodList(Food food) {
+        RequestToNet backgroundSelf = new RequestToNet();
+        String output = null;
+        String input = null;
+        try {
+            output = backgroundSelf.execute(Siec.selfURL, Siec.GET, input).get();
 
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (Siec.httpRc == 200) {
+            try {
+                JSONObject jsonFood = new JSONObject(output);
+                Log.i("userData", output);
+                food.id = jsonFood.getInt("id");
+                food.name = jsonFood.getString("name");
+                food.description = jsonFood.getString("description");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
 

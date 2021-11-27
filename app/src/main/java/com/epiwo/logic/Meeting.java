@@ -17,7 +17,7 @@ public class Meeting {
     private String name;
     private String desc;
     private String place;
-    private List<String> foods;
+    private List<Food> foods;
     private String dateAndTime;
     private Chat chat;
 

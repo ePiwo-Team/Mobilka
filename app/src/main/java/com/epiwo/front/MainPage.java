@@ -41,10 +41,8 @@ public class MainPage extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mainActivity = new Intent(page , AddMeetingActivity.class);
-                startActivity(mainActivity);
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent addMeeting = new Intent(page , AddMeeting.class);
+                startActivity(addMeeting);
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

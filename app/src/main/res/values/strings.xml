@@ -15,9 +15,11 @@
     <string name="menu_logout">Wyloguj</string>
     <string name="destroy_user">Usuń Konto</string>
 
-    <string name="place_hint">Gdzie:</string>
-    <string name="desc_hint">Co:</string>
-
+    <string name="place_hint">Miejsce Spotkania:</string>
+    <string name="desc_hint">Opis Spotkania:</string>
+    <string name="name_hint">Nazwa Spotkania:</string>
+    <string name="date_hint">Data spotkania YYYY-MM-DD-HH-MM-SS</string>
+    <string name="create_meeting">Utwórz spotkanie!</string>
 
     <string name="menu_home">Spotkania</string>
     <string name="menu_settings">Ustawienia konta</string>

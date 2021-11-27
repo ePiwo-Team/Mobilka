@@ -33,6 +33,8 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         recyclerView.setAdapter(new MeetingAdapter());
 
+        MainPage.fab.show();
+
         return root;
     }
 
