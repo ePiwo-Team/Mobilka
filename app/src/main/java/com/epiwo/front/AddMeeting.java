@@ -2,6 +2,7 @@ package com.epiwo.front;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 
@@ -13,10 +14,10 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
-import android.widget.DatePicker;
+
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TimePicker;
+
 import android.widget.Toast;
 import com.epiwo.logic.Food;
 import com.epiwo.logic.Meeting;
@@ -42,17 +43,12 @@ public class AddMeeting extends AppCompatActivity {
         Food.loadFoods();
 
         listViewData = findViewById(R.id.listView_data);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, Food.listToArray());
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, Food.listToArray());
         listViewData.setAdapter(adapter);
 
         dateTime=findViewById(R.id.editTextMeetingDate);
         dateTime.setInputType(InputType.TYPE_NULL);
-        dateTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDateTimeDialog(dateTime);
-            }
-        });
+        dateTime.setOnClickListener(v -> showDateTimeDialog(dateTime));
     }
 
 
@@ -70,7 +66,6 @@ public class AddMeeting extends AppCompatActivity {
 
         EditText name = findViewById(R.id.editTextMeetingName);
         EditText desc = findViewById(R.id.editTextMeetingDescription);
-        EditText date = findViewById(R.id.editTextMeetingDate);
         EditText place = findViewById(R.id.editTextMeetingPlace);
 
         newMeeting = new Meeting(0,name.getText().toString(),
@@ -78,7 +73,6 @@ public class AddMeeting extends AppCompatActivity {
                 foods,
                 place.getText().toString(),
                 calendar.toInstant().toString());
-                //date.getText().toString());
         info = Meeting.uploadMeeting(newMeeting);
         Toast.makeText(this,info,Toast.LENGTH_SHORT).show();
 
@@ -88,26 +82,21 @@ public class AddMeeting extends AppCompatActivity {
 
     private void showDateTimeDialog(final EditText date_time_in) {
 
-        DatePickerDialog.OnDateSetListener dateSetListener=new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                calendar.set(Calendar.YEAR,year);
-                calendar.set(Calendar.MONTH,month);
-                calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+        DatePickerDialog.OnDateSetListener dateSetListener= (view, year, month, dayOfMonth) -> {
+            calendar.set(Calendar.YEAR,year);
+            calendar.set(Calendar.MONTH,month);
+            calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
 
-                TimePickerDialog.OnTimeSetListener timeSetListener=new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
-                        calendar.set(Calendar.MINUTE,minute);
+            @SuppressLint("SimpleDateFormat") TimePickerDialog.OnTimeSetListener timeSetListener= (view1, hourOfDay, minute) -> {
+                calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                calendar.set(Calendar.MINUTE,minute);
 
-                        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                        date_time_in.setText(simpleDateFormat.format(calendar.getTime()));
-                    }
-                };
+                SimpleDateFormat simpleDateFormat;
+                simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                date_time_in.setText(simpleDateFormat.format(calendar.getTime()));
+            };
 
-                new TimePickerDialog(AddMeeting.this,timeSetListener,calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),false).show();
-            }
+            new TimePickerDialog(AddMeeting.this,timeSetListener,calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),false).show();
         };
 
         new DatePickerDialog(AddMeeting.this,dateSetListener,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.epiwo.front.MainActivity;
 import com.epiwo.front.R;
@@ -53,12 +54,16 @@ public class SettingsFragment extends Fragment {
                 user.password = editPassword.getText().toString();
 
 
-                if( user.checkPassword(repeatPassword.getText().toString()))
-                Siec.updateUserData(user);
+                if( user.checkPassword(repeatPassword.getText().toString())) {
+                    Siec.updateUserData(user);
+                    Toast.makeText(getActivity(),"Dane zostały zaktualizowane", Toast.LENGTH_SHORT).show();
+                    Navigation.findNavController(v).navigate(R.id.nav_home);
+                }
                 else{
                     String text = getResources().getString(R.string.niezgodnehasla);
                     Toast.makeText(getActivity(),text, Toast.LENGTH_LONG).show();
                 }
+
             }
         });
 

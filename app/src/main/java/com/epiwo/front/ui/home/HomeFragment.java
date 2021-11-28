@@ -21,9 +21,18 @@ public class HomeFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        Meeting.downloadMeetings();
+
         RecyclerView recyclerView = root.findViewById(R.id.meetings_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         recyclerView.setAdapter(new MeetingAdapter());
+
+        if (Meeting.count() == 0) {
+            recyclerView.setVisibility(View.GONE);
+        }
+        else {
+            recyclerView.setVisibility(View.VISIBLE);
+        }
 
         MainPage.fab.show();
 

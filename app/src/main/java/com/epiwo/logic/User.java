@@ -40,6 +40,7 @@ public class User {
     }
 
     public Boolean register(){
+        Siec.jwt = null;
         return Siec.register(this);
 
 

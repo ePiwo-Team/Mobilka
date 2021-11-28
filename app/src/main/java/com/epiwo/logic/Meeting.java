@@ -9,6 +9,7 @@ import com.epiwo.network.Siec;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Meeting {
@@ -21,27 +22,49 @@ public class Meeting {
     private String dateAndTime;
     private Chat chat;
 
-    static Meeting[] meetings = null;
+    //static Meeting[] meetings = null;
+    static List<Meeting> meetings = new LinkedList<>();
 
-    public static long getID(int poz) { return meetings[poz].id; }
+    public static long getID(int poz) { return meetings.get(poz).id; }
 
     public static String getName(int pos) {
-        return meetings[pos].name;
+        return meetings.get(pos).name;
     }
 
     public static String getDesc(int pos) {
-        return meetings[pos].desc;
+        return meetings.get(pos).desc;
     }
 
     public static String getPlace(int pos) {
-        return meetings[pos].place;
+        return meetings.get(pos).place;
     }
 
     public static String getMeetingDate(int pos) {
-        return meetings[pos].dateAndTime;
+        return meetings.get(pos).dateAndTime;
     }
 
-    public static Chat getChat(int poz) { return meetings[poz].chat; }
+    public static Chat getChat(int poz) { return meetings.get(poz).chat; }
+
+//    public static long getID(int poz) { return meetings[poz].id; }
+//
+//    public static String getName(int pos) {
+//        return meetings[pos].name;
+//    }
+//
+//    public static String getDesc(int pos) {
+//        return meetings[pos].desc;
+//    }
+//
+//    public static String getPlace(int pos) {
+//        return meetings[pos].place;
+//    }
+//
+//    public static String getMeetingDate(int pos) {
+//        return meetings[pos].dateAndTime;
+//    }
+//
+//    public static Chat getChat(int poz) { return meetings[poz].chat; }
+
 
     public String getName() {
         return name;
@@ -64,34 +87,35 @@ public class Meeting {
     }
 
     public static int count(){
-        if (meetings==null)
-            return 0;
-        return meetings.length;
+//        if (meetings==null)
+//            return 0;
+        return meetings.size();
     }
 
 
     public static void downloadMeetings(){
-        meetings=null;
-
+        meetings=new LinkedList<>();
 
         Siec.getSelfMeetings();
 
-        Log.i("#spotkan: ", String.valueOf(meetings.length));
+        Log.i("#spotkan: ", String.valueOf(meetings.size()));
     }
 
     public static void addMeeting(Meeting item){
-        if (meetings == null) {
-            meetings = new Meeting[1];
-            meetings[0] = item;
-        }
-        else {
-            List<Meeting> arrlist
-                    = new ArrayList<Meeting>(
-                    Arrays.asList(meetings));
 
-            arrlist.add(item);
-            meetings = arrlist.toArray(new Meeting[0]);
-        }
+        meetings.add(item);
+//        if (meetings == null) {
+//            meetings = new Meeting[1];
+//            meetings[0] = item;
+//        }
+//        else {
+//            List<Meeting> arrlist
+//                    = new ArrayList<Meeting>(
+//                    Arrays.asList(meetings));
+//
+//            arrlist.add(item);
+//            meetings = arrlist.toArray(new Meeting[0]);
+//        }
     }
 
 
@@ -113,5 +137,5 @@ public class Meeting {
         this.chat = new Chat(name,id);
     }
 
-    
+
 }
