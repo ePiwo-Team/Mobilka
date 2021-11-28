@@ -28,4 +28,11 @@
         android:name="com.epiwo.front.ui.logoutdestroy.LogoutFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_logout" />
+
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="com.epiwo.front.ui.home.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search" />
+
 </navigation>
