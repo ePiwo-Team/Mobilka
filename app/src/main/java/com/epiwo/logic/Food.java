@@ -2,21 +2,20 @@ package com.epiwo.logic;
 
 import android.widget.ArrayAdapter;
 
+import com.epiwo.network.Siec;
+
 import java.util.LinkedList;
 import java.util.List;
 
 public class Food {
 
 
-    public static List<Food> foods = new LinkedList<>();
-
+    public static List<Food> foods = null;
 
     public static void loadFoods(){
-
-        foods.add(new Food(1,"Kebab","Danie tureckie - mięso z warzywami i sosem, zawinięte w placek"));
-        foods.add(new Food(2,"Pizza","Danie włoskie - pieczony z rozmaitymi dodatkami placek, pokryty serem i sosem pomidorowym"));
+        foods = new LinkedList<>();
+        Siec.getFoodList(foods);
     }
-
 
     public   long id;
     public   String name;

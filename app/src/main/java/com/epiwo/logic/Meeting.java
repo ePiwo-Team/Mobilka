@@ -17,7 +17,7 @@ public class Meeting {
     private String name;
     private String desc;
     private String place;
-    private List<Food> foods;
+    private List<String> foods;
     private String dateAndTime;
     private Chat chat;
 
@@ -43,6 +43,26 @@ public class Meeting {
 
     public static Chat getChat(int poz) { return meetings[poz].chat; }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public List<String> getFoods() {
+        return foods;
+    }
+
+    public String getDateAndTime() {
+        return dateAndTime;
+    }
+
     public static int count(){
         if (meetings==null)
             return 0;
@@ -50,7 +70,7 @@ public class Meeting {
     }
 
 
-    public static void update(){
+    public static void downloadMeetings(){
         meetings=null;
 
 
@@ -75,19 +95,23 @@ public class Meeting {
     }
 
 
-    public Meeting(String name) {
-        this.name = name;
+    public static String uploadMeeting(Meeting item){
+        if(Siec.postMeeting(item))
+            return "Założono spotkanie";
+        else
+            return "Błąd tworzenia: "+Siec.httpRc;
     }
 
 
-    public Meeting(long id, String name, String desc, /*List<String> foods,*/ String place, String dateAndTime) {
+    public Meeting(long id, String name, String desc, List<String> foods, String place, String dateAndTime) {
         this.id = id;
         this.name = name;
         this.desc = desc;
-       // this.foods = foods;
+        this.foods = foods;
         this.place = place;
         this.dateAndTime = dateAndTime;
         this.chat = new Chat(name,id);
     }
 
+    
 }

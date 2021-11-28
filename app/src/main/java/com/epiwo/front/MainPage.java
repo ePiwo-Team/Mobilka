@@ -28,8 +28,6 @@ public class MainPage extends AppCompatActivity {
     static public  FloatingActionButton fab=null;
     static public MainPage page;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

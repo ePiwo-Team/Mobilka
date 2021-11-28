@@ -1,6 +1,7 @@
 package com.epiwo.network;
 
 import android.util.Log;
+import android.widget.ListView;
 
 import com.epiwo.logic.Food;
 import com.epiwo.logic.Meeting;
@@ -10,6 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class Siec {
@@ -25,8 +28,8 @@ public class Siec {
 
     //spotkania
     public static String getSelfMeetingURL = address+ "/api/meeting/get_own";
-    public static String createMeeting = address+ "/meeting/new_meeting";
-    public static String getFoodList = address+ "/api/food";
+    public static String createMeetingURL = address+ "/api/meeting/new_meeting";
+    public static String getFoodListURL = address+ "/api/food";
 
 
     public static URL url;
@@ -195,6 +198,7 @@ public class Siec {
         RequestToNet backgroundSelf = new RequestToNet();
         String output = null;
         String input = null;
+        List<String> foods = new LinkedList<>();
         try {
             output = backgroundSelf.execute(Siec.getSelfMeetingURL, Siec.GET, input).get();
 
@@ -212,10 +216,15 @@ public class Siec {
 
                 for (int i=0; i<jsonLista.length(); ++i) {
                     JSONObject jsonMeeting = jsonLista.getJSONObject(i);
+                    JSONArray jsonMeetingFoods = jsonMeeting.getJSONArray("foods");
+                    for(int j=0; j<jsonMeetingFoods.length();++j)
+                        foods.add(jsonMeetingFoods.getString(j));
+
                     Meeting.addMeeting(new Meeting(
                             jsonMeeting.getInt("id"),
                             jsonMeeting.getString("name"),
                             jsonMeeting.getString("description"),
+                            foods,
                             jsonMeeting.getString("place"),
                             jsonMeeting.getString("dateAndTime")
                     ));
@@ -226,12 +235,12 @@ public class Siec {
         }
     }
 
-    public static void getFoodList(Food food) {
+    public static void getFoodList(List<Food> lista) {
         RequestToNet backgroundSelf = new RequestToNet();
         String output = null;
         String input = null;
         try {
-            output = backgroundSelf.execute(Siec.selfURL, Siec.GET, input).get();
+            output = backgroundSelf.execute(Siec.getFoodListURL, Siec.GET, input).get();
 
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -241,17 +250,51 @@ public class Siec {
 
         if (Siec.httpRc == 200) {
             try {
-                JSONObject jsonFood = new JSONObject(output);
-                Log.i("userData", output);
-                food.id = jsonFood.getInt("id");
-                food.name = jsonFood.getString("name");
-                food.description = jsonFood.getString("description");
+
+                JSONArray jsonFoods = new JSONArray(output);
+
+                for(int i=0; i<jsonFoods.length(); ++i) {
+                    JSONObject jsonFood = jsonFoods.getJSONObject(i);
+                    lista.add( new Food(jsonFood.getInt("id"),
+                       jsonFood.getString("name"),
+                       jsonFood.getString("description")));
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
 
+    public static boolean postMeeting( Meeting item){
 
+        RequestToNet backgroundRegister = new RequestToNet();
+        String output = null;
+        String input = null;
+
+        JSONObject jsonSentObject = new JSONObject();
+        try {
+            jsonSentObject.put("name", item.getName());
+            jsonSentObject.put("dateAndTime", item.getDateAndTime());
+            jsonSentObject.put("place", item.getPlace());
+            jsonSentObject.put("description", item.getDesc());
+            JSONArray foods = new JSONArray();
+            for (int i=0; i<item.getFoods().size(); ++i) foods.put(item.getFoods().get(i));
+            jsonSentObject.put("foods", foods );
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            input = backgroundRegister.execute(Siec.createMeetingURL, Siec.POST, jsonSentObject.toString()).get();
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if((Siec.httpRc == 200) || (Siec.httpRc == 201) )
+            return true;
+
+        return false;
+    }
 
 }
