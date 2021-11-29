@@ -28,7 +28,7 @@ public class ModeratorFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         recyclerView.setAdapter(new ModeratorMeetingAdapter());
 
-        if (Meeting.count() == 0) {
+        if (Meeting.count(Meeting.myMeetings) == 0) {
             recyclerView.setVisibility(View.GONE);
         }
         else {

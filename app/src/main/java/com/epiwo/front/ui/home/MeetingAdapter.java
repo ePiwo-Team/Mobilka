@@ -22,15 +22,15 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MyMeetin
 
     @Override
     public void onBindViewHolder(@NonNull MyMeetingViewHolder holder, int position) {
-        holder.meetingName.setText(Meeting.getName(position));
-        holder.meetingPlace.setText(Meeting.getPlace(position));
-        holder.meetingDesc.setText(Meeting.getDesc(position));
+        holder.meetingName.setText(Meeting.getName(Meeting.meetings,position));
+        holder.meetingPlace.setText(Meeting.getPlace(Meeting.meetings,position));
+        holder.meetingDesc.setText(Meeting.getDesc(Meeting.meetings,position));
 
 
         // Osluga kliku na meetingu
         holder.itemView.setOnClickListener(v -> {
 
-            Chat.current = Meeting.getChat(position);
+            Chat.current = Meeting.getChat(Meeting.meetings,position);
             Navigation.findNavController(v).navigate(R.id.nav_chat);
         });
     }
@@ -42,7 +42,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MyMeetin
             return 0;
         else
  */
-        return Meeting.count();
+        return Meeting.count(Meeting.meetings);
     }
 
     static class MyMeetingViewHolder extends RecyclerView.ViewHolder{

@@ -22,53 +22,35 @@ public class Meeting {
     private String dateAndTime;
     private Chat chat;
     private boolean moderator;
+    static public Meeting current = null;
 
     //static Meeting[] meetings = null;
-    static List<Meeting> meetings = new LinkedList<>();
-    static List<Meeting> myMeetings = new LinkedList<>();
+    static public List<Meeting> meetings = new LinkedList<>();
+    static public List<Meeting> myMeetings = new LinkedList<>();
 
-    public static long getID(int poz) { return meetings.get(poz).id; }
+    public static long getID(List<Meeting> lista, int pos) { return lista.get(pos).id; }
 
-    public static String getName(int pos) {
-        return meetings.get(pos).name;
+    public static String getName(List<Meeting> lista, int pos) {
+        return lista.get(pos).name;
     }
 
-    public static String getDesc(int pos) {
-        return meetings.get(pos).desc;
+    public static String getDesc(List<Meeting> lista, int pos) {
+        return lista.get(pos).desc;
     }
 
-    public static String getPlace(int pos) {
-        return meetings.get(pos).place;
+    public static String getPlace(List<Meeting> lista, int pos) {
+        return lista.get(pos).place;
     }
 
-    public static String getMeetingDate(int pos) {
-        return meetings.get(pos).dateAndTime;
+    public static String getMeetingDate(List<Meeting> lista, int pos) {
+        return lista.get(pos).dateAndTime;
     }
 
-    public static Chat getChat(int poz) { return meetings.get(poz).chat; }
+    public static Chat getChat(List<Meeting> lista, int pos) { return lista.get(pos).chat; }
 
-    public static boolean getModerator(int poz) { return meetings.get(poz).moderator; }
+    public static boolean getModerator(List<Meeting> lista, int pos) { return lista.get(pos).moderator; }
 
 
-//    public static long getID(int poz) { return meetings[poz].id; }
-//
-//    public static String getName(int pos) {
-//        return meetings[pos].name;
-//    }
-//
-//    public static String getDesc(int pos) {
-//        return meetings[pos].desc;
-//    }
-//
-//    public static String getPlace(int pos) {
-//        return meetings[pos].place;
-//    }
-//
-//    public static String getMeetingDate(int pos) {
-//        return meetings[pos].dateAndTime;
-//    }
-//
-//    public static Chat getChat(int poz) { return meetings[poz].chat; }
 
 
     public String getName() {
@@ -93,15 +75,18 @@ public class Meeting {
         return dateAndTime;
     }
 
-    public static int count(){
-//        if (meetings==null)
-//            return 0;
-        return meetings.size();
+    public boolean isModerator() {
+        return moderator;
+    }
+
+    public static int count(List<Meeting> lista){
+        return lista.size();
     }
 
 
     public static void downloadMeetings(){
         meetings=new LinkedList<>();
+        myMeetings=new LinkedList<>();
 
         Siec.getSelfMeetings();
 
@@ -112,7 +97,8 @@ public class Meeting {
 
         meetings.add(item);
 
-
+        if (item.isModerator())
+            myMeetings.add(item);
     }
 
 

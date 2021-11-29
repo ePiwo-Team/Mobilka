@@ -27,7 +27,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         recyclerView.setAdapter(new MeetingAdapter());
 
-        if (Meeting.count() == 0) {
+        if (Meeting.count(Meeting.meetings) == 0) {
             recyclerView.setVisibility(View.GONE);
         }
         else {

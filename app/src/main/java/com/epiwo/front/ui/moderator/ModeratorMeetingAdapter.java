@@ -21,21 +21,21 @@ public class ModeratorMeetingAdapter extends RecyclerView.Adapter<ModeratorMeeti
 
     @Override
     public void onBindViewHolder(@NonNull MyMeetingViewHolder holder, int position) {
-            holder.meetingName.setText(Meeting.getName(position));
-            holder.meetingPlace.setText(Meeting.getPlace(position));
-            holder.meetingDesc.setText(Meeting.getDesc(position));
+            holder.meetingName.setText(Meeting.getName(Meeting.myMeetings,position));
+            holder.meetingPlace.setText(Meeting.getPlace(Meeting.myMeetings,position));
+            holder.meetingDesc.setText(Meeting.getDesc(Meeting.myMeetings,position));
 
         // Osluga kliku na meetingu
-//        holder.itemView.setOnClickListener(v -> {
-//
-//
-//            Navigation.findNavController(v).navigate(R.layout.fragment_meeting_card);
-//        });
+        holder.itemView.setOnClickListener(v -> {
+
+            Meeting.current = Meeting.myMeetings.get(position);
+            Navigation.findNavController(v).navigate(R.id.nav_meeting_card);
+        });
     }
 
     @Override
     public int getItemCount() {
-        return Meeting.count();
+        return Meeting.count(Meeting.myMeetings);
     }
 
     static class MyMeetingViewHolder extends RecyclerView.ViewHolder{
