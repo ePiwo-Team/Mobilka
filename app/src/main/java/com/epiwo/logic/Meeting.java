@@ -18,12 +18,14 @@ public class Meeting {
     private String name;
     private String desc;
     private String place;
-    private List<String> foods;
+    private List<Food> foods;
     private String dateAndTime;
     private Chat chat;
+    private boolean moderator;
 
     //static Meeting[] meetings = null;
     static List<Meeting> meetings = new LinkedList<>();
+    static List<Meeting> myMeetings = new LinkedList<>();
 
     public static long getID(int poz) { return meetings.get(poz).id; }
 
@@ -44,6 +46,9 @@ public class Meeting {
     }
 
     public static Chat getChat(int poz) { return meetings.get(poz).chat; }
+
+    public static boolean getModerator(int poz) { return meetings.get(poz).moderator; }
+
 
 //    public static long getID(int poz) { return meetings[poz].id; }
 //
@@ -70,6 +75,8 @@ public class Meeting {
         return name;
     }
 
+    public long getId() { return id; }
+
     public String getDesc() {
         return desc;
     }
@@ -78,7 +85,7 @@ public class Meeting {
         return place;
     }
 
-    public List<String> getFoods() {
+    public List<Food> getFoods() {
         return foods;
     }
 
@@ -104,18 +111,8 @@ public class Meeting {
     public static void addMeeting(Meeting item){
 
         meetings.add(item);
-//        if (meetings == null) {
-//            meetings = new Meeting[1];
-//            meetings[0] = item;
-//        }
-//        else {
-//            List<Meeting> arrlist
-//                    = new ArrayList<Meeting>(
-//                    Arrays.asList(meetings));
-//
-//            arrlist.add(item);
-//            meetings = arrlist.toArray(new Meeting[0]);
-//        }
+
+
     }
 
 
@@ -127,7 +124,7 @@ public class Meeting {
     }
 
 
-    public Meeting(long id, String name, String desc, List<String> foods, String place, String dateAndTime) {
+    public Meeting(long id, String name, String desc, List<Food> foods, String place, String dateAndTime, boolean moderator) {
         this.id = id;
         this.name = name;
         this.desc = desc;
@@ -135,7 +132,7 @@ public class Meeting {
         this.place = place;
         this.dateAndTime = dateAndTime;
         this.chat = new Chat(name,id);
+        this.moderator = moderator;
     }
-
 
 }

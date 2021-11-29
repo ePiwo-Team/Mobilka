@@ -6,6 +6,7 @@ import com.epiwo.network.Siec;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class Food {
 
@@ -44,5 +45,23 @@ public class Food {
         for (int i = 0; i < array.length; i++)
             array[i] = foods.get(i).getName();
         return array;
+    }
+
+    public static int  findFood(String name){
+        for(int i=0; i<foods.size();i++)
+        {
+            if(Objects.equals(name,foods.get(i).getName()))
+                return i;
+        }
+        return 0;
+    }
+
+    public static int  findFood(long id){
+        for(int i=0; i<foods.size();i++)
+        {
+            if(id == foods.get(i).getId())
+                return i;
+        }
+        return 0;
     }
 }

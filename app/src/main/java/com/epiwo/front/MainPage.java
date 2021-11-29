@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.epiwo.logic.Food;
 import com.epiwo.logic.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -51,7 +53,7 @@ public class MainPage extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
+        Food.loadFoods();
         User.me.refreshUser();
     }
 
@@ -81,7 +83,7 @@ public class MainPage extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_search:
-                View v = page.getCurrentFocus();
+                View v = page.findViewById(R.id.nav_host_fragment);
                 Toast.makeText(this, "chyba, że hoho", Toast.LENGTH_SHORT).show();
                 Navigation.findNavController(v).navigate(R.id.nav_search);
                 break;

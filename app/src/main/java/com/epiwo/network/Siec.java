@@ -196,7 +196,7 @@ public class Siec {
         RequestToNet backgroundSelf = new RequestToNet();
         String output = null;
         String input = null;
-        List<String> foods = new LinkedList<>();
+        List<Food> foods = new LinkedList<>();
         try {
             output = backgroundSelf.execute(Siec.getSelfMeetingURL, Siec.GET, input).get();
 
@@ -216,7 +216,7 @@ public class Siec {
                     JSONObject jsonMeeting = jsonLista.getJSONObject(i);
                     JSONArray jsonMeetingFoods = jsonMeeting.getJSONArray("foods");
                     for(int j=0; j<jsonMeetingFoods.length();++j)
-                        foods.add(jsonMeetingFoods.getString(j));
+                        foods.add(Food.foods.get(Food.findFood(jsonMeetingFoods.getLong(j))));
 
                     Meeting.addMeeting(new Meeting(
                             jsonMeeting.getInt("id"),
@@ -224,7 +224,8 @@ public class Siec {
                             jsonMeeting.getString("description"),
                             foods,
                             jsonMeeting.getString("place"),
-                            jsonMeeting.getString("dateAndTime")
+                            jsonMeeting.getString("dateAndTime"),
+                            jsonMeeting.getBoolean("currentUserHost")
                     ));
                 }
             } catch (JSONException e) {
@@ -276,7 +277,7 @@ public class Siec {
             jsonSentObject.put("place", item.getPlace());
             jsonSentObject.put("description", item.getDesc());
             JSONArray foods = new JSONArray();
-            for (int i=0; i<item.getFoods().size(); ++i) foods.put(item.getFoods().get(i));
+            for (int i=0; i<item.getFoods().size(); ++i) foods.put(item.getFoods().get(i).getId());
             jsonSentObject.put("foods", foods );
         } catch (JSONException e) {
             e.printStackTrace();

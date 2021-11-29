@@ -48,12 +48,12 @@ public class Register extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
-                String preceedingZero = "0";
+                String monthWithZero = "0";
                 if(month < 10)
-                    preceedingZero = preceedingZero + String.valueOf(month);
+                    monthWithZero = monthWithZero + String.valueOf(month);
                 else
-                    preceedingZero = getString(month);
-                String date = year + "-" + preceedingZero + "-" + day;
+                    monthWithZero = String.valueOf(month);
+                String date = year + "-" + monthWithZero + "-" + day;
                 textDate_in.setText(date);
             }
         };

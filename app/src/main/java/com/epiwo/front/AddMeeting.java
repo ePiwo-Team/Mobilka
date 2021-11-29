@@ -56,10 +56,10 @@ public class AddMeeting extends AppCompatActivity {
 
         Meeting newMeeting;
         String info;
-        List<String> foods = new LinkedList<>();
+        List<Food> foods = new LinkedList<>();
         for(int i = 0; i<listViewData.getCount();i++){
             if(listViewData.isItemChecked(i)){
-                foods.add(listViewData.getItemAtPosition(i).toString());
+                foods.add(Food.foods.get(Food.findFood(listViewData.getItemAtPosition(i).toString())));
             }
         }
 
@@ -72,7 +72,8 @@ public class AddMeeting extends AppCompatActivity {
                 desc.getText().toString(),
                 foods,
                 place.getText().toString(),
-                calendar.toInstant().toString());
+                calendar.toInstant().toString(),
+                true);
         info = Meeting.uploadMeeting(newMeeting);
         Toast.makeText(this,info,Toast.LENGTH_SHORT).show();
 
