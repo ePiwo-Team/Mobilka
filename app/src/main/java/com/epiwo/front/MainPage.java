@@ -1,5 +1,6 @@
 package com.epiwo.front;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -7,16 +8,10 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.epiwo.front.ui.chat.ChatFragment;
-import com.epiwo.front.ui.settings.SettingsFragment;
 import com.epiwo.logic.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
-
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -24,6 +19,8 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import static com.epiwo.front.R.layout.activity_meetings;
 
 public class MainPage extends AppCompatActivity {
 
@@ -35,23 +32,20 @@ public class MainPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         page = this;
-        setContentView(R.layout.activity_meetings);
+        setContentView(activity_meetings);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent addMeeting = new Intent(page , AddMeeting.class);
-                startActivity(addMeeting);
-            }
+        fab.setOnClickListener(view -> {
+            Intent addMeeting = new Intent(page , AddMeeting.class);
+            startActivity(addMeeting);
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_settings, R.id.nav_logout)
+                R.id.nav_home, R.id.nav_settings, R.id.nav_logout, R.id.nav_mod)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -81,15 +75,16 @@ public class MainPage extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.action_search: // miejsce na obsługę wywołania wyszukiwarki spotkań
-            View v = page.getCurrentFocus();
-            Toast.makeText(this, "chyba, że hoho", Toast.LENGTH_SHORT).show();
-            Navigation.findNavController(v).navigate(R.id.nav_search);
-            break;
+            case R.id.action_search:
+                View v = page.getCurrentFocus();
+                Toast.makeText(this, "chyba, że hoho", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(v).navigate(R.id.nav_search);
+                break;
         }
 
         return super.onOptionsItemSelected(item);

@@ -12,12 +12,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.epiwo.front.MainPage;
 import com.epiwo.front.R;
 
 import com.epiwo.logic.Chat;
+import com.epiwo.logic.Meeting;
 
 
 public class ChatFragment extends Fragment {
+
+    RecyclerView recyclerView;
+
   @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -28,10 +33,10 @@ public class ChatFragment extends Fragment {
         TextView test = root.findViewById(R.id.test_tekst);
         test.setText(Chat.current.getName());
 
-        RecyclerView recyclerView = root.findViewById(R.id.chat);
+        recyclerView = root.findViewById(R.id.chat);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         recyclerView.setAdapter(new ChatAdapter());
-        recyclerView.scrollToPosition(Chat.current.talk.size());
+        recyclerView.scrollToPosition(Chat.current.talk.size()-1);
 
         Button buttonSend = root.findViewById(R.id.button_send_message);
         buttonSend.setOnClickListener(v -> {
@@ -41,5 +46,11 @@ public class ChatFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        recyclerView.scrollToPosition(Chat.current.talk.size()-1);
+    }
 
 }

@@ -7,12 +7,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.epiwo.front.MainPage;
 import com.epiwo.front.R;
-import com.epiwo.logic.Meeting;
+
 
 public class SearchFragment extends Fragment {
 

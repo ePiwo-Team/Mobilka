@@ -2,7 +2,6 @@ package com.epiwo.front;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +12,8 @@ import android.widget.Toast;
 import com.epiwo.logic.User;
 import com.epiwo.network.Siec;
 
+import java.util.Objects;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
     }

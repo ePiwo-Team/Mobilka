@@ -1,5 +1,6 @@
 package com.epiwo.front.ui.settings;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ public class SettingsFragment extends Fragment {
 
     User user = User.me;
 
+    @SuppressLint("CutPasteId")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -38,43 +40,38 @@ public class SettingsFragment extends Fragment {
         editName.setText(user.name);
         editPhoneNumber.setText(user.phone);
 
-        updateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        updateButton.setOnClickListener(v -> {
 
-                EditText editEmail = root.findViewById(R.id.editEmail);
-                EditText editName = root.findViewById(R.id.editName);
-                EditText editPhoneNumber = root.findViewById(R.id.editPhone);
-                EditText editPassword = root.findViewById(R.id.editPassword);
-                EditText repeatPassword = root.findViewById(R.id.editPasswordRepeat);
-
-                user.email = editEmail.getText().toString();
-                user.name = editName.getText().toString();
-                user.phone = editPhoneNumber.getText().toString();
-                user.password = editPassword.getText().toString();
+            EditText editEmail1 = root.findViewById(R.id.editEmail);
+            EditText editName1 = root.findViewById(R.id.editName);
+            EditText editPhoneNumber1 = root.findViewById(R.id.editPhone);
+            EditText editPassword = root.findViewById(R.id.editPassword);
+            EditText repeatPassword = root.findViewById(R.id.editPasswordRepeat);
 
 
-                if( user.checkPassword(repeatPassword.getText().toString())) {
-                    Siec.updateUserData(user);
-                    Toast.makeText(getActivity(),"Dane zostały zaktualizowane", Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(v).navigate(R.id.nav_home);
-                }
-                else{
-                    String text = getResources().getString(R.string.niezgodnehasla);
-                    Toast.makeText(getActivity(),text, Toast.LENGTH_LONG).show();
-                }
+            user.email = editEmail1.getText().toString();
+            user.name = editName1.getText().toString();
+            user.phone = editPhoneNumber1.getText().toString();
+            user.password = editPassword.getText().toString();
 
+
+            if( user.checkPassword(repeatPassword.getText().toString())) {
+                Siec.updateUserData(user);
+                Toast.makeText(getActivity(),"Dane zostały zaktualizowane", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(v).navigate(R.id.nav_home);
             }
+            else{
+                String text = getResources().getString(R.string.niezgodnehasla);
+                Toast.makeText(getActivity(),text, Toast.LENGTH_LONG).show();
+            }
+
         });
 
-        buttonDestroy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Siec.deleteSelfUser();
-                user.nullUserData();
-                Intent mainActivity = new Intent(getActivity(), MainActivity.class);
-                startActivity(mainActivity);
-            }
+        buttonDestroy.setOnClickListener(v -> {
+            Siec.deleteSelfUser();
+            user.nullUserData();
+            Intent mainActivity = new Intent(getActivity(), MainActivity.class);
+            startActivity(mainActivity);
         });
 
 

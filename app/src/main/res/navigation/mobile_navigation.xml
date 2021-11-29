@@ -34,5 +34,10 @@
         android:name="com.epiwo.front.ui.home.SearchFragment"
         android:label="Search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@id/nav_mod"
+        android:name="com.epiwo.front.ui.moderator.ModeratorFragment"
+        android:label="@string/my_meetings"
+        tools:layout="@layout/fragment_moderator"/>
 
 </navigation>

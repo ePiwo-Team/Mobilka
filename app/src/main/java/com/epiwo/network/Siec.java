@@ -1,8 +1,6 @@
 package com.epiwo.network;
 
 import android.util.Log;
-import android.widget.ListView;
-
 import com.epiwo.logic.Food;
 import com.epiwo.logic.Meeting;
 import com.epiwo.logic.User;

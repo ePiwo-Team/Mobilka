@@ -6,7 +6,7 @@
     <string name="zarejestrujsie">Zarejestruj się!</string>
     <string name="email">e-mail:</string>
     <string name="telefon">Numer telefonu:</string>
-    <string name="dataurodzenia">Data urodzenia:</string>
+    <string name="dataurodzenia"> Data urodzenia:</string>
     <string name="title_activity_register">Register</string>
     <string name="powtorzhaslo">Powtórz Hasło:</string>
     <string name="niezgodnehasla">Podane hasła się nie zgadzają!</string>
@@ -20,10 +20,9 @@
     <string name="name_hint">Nazwa Spotkania:</string>
     <string name="date_hint">Data spotkania YYYY-MM-DD-HH-MM-SS</string>
     <string name="create_meeting">Utwórz spotkanie!</string>
-
+    <string name="my_meetings">Moje spotkania</string>
     <string name="menu_home">Spotkania</string>
     <string name="menu_settings">Ustawienia konta</string>
-
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
@@ -47,7 +46,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
 
-
+    <string name="send">Wyślij</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="title_activity_meetings">Meetings</string>
     <string name="title_activity_add_meeting">AddMeetingActivity</string>

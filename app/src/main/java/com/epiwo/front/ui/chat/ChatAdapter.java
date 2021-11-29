@@ -6,12 +6,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.RecyclerView;
 
+import androidx.recyclerview.widget.RecyclerView;
 import com.epiwo.front.R;
 import com.epiwo.logic.Chat;
-import com.epiwo.logic.Meeting;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BalloonViewHolder> {
 
