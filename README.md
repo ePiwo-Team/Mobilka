@@ -1,1 +1,1 @@
-Kupsko śmmierdzące, czasem działające
+Dziekan pije piwsko
