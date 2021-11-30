@@ -1,0 +1,1 @@
+Kupsko śmmierdzące, czasem działające
