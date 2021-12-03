@@ -53,7 +53,14 @@ public class Register extends AppCompatActivity {
                     monthWithZero = monthWithZero + String.valueOf(month);
                 else
                     monthWithZero = String.valueOf(month);
-                String date = year + "-" + monthWithZero + "-" + day;
+
+                String dayWithZero = "0";
+                if(dayOfMonth < 10)
+                    dayWithZero = dayWithZero + String.valueOf(dayOfMonth);
+                else
+                    dayWithZero = String.valueOf(dayOfMonth);
+
+                String date = year + "-" + monthWithZero + "-" + dayWithZero;
                 textDate_in.setText(date);
             }
         };

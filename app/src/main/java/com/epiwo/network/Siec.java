@@ -29,6 +29,7 @@ public class Siec {
     public static String createMeetingURL = address+ "/api/meeting/new_meeting";
     public static String getFoodListURL = address+ "/api/food";
     public static String destroyMeetingURL = address+ "/api/meeting/delete_meeting?meetingId="; //dodać id meetingu do usuwania
+    public static String joinMeetingURL = address+ "/api/meeting/join?meetingId=";
     public static String searchMeetingURL = address+ "/api/meeting/filter";
 
     public static URL url;
@@ -314,7 +315,7 @@ public class Siec {
             JSONArray foods = new JSONArray();
             for (int i = 0; i < filterFoods.size(); ++i)
                 foods.put(filterFoods.get(i).getId());
-            jsonSentObject.put("foods", foods);
+            jsonSentObject.put("foodIds", foods);
             jsonSentObject.put("place",place);
             jsonSentObject.put("name", name);
             jsonSentObject.put("minDate", minDate);
@@ -361,5 +362,24 @@ public class Siec {
         return false;
     }
 
+
+    public static String joinMeeting( long id){
+
+        RequestToNet backgroundRegister = new RequestToNet();
+        String output = null;
+        String input = null;
+
+        try {
+            input = backgroundRegister.execute(Siec.joinMeetingURL+String.valueOf(id), Siec.POST, output).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(Siec.httpRc == 200)
+        return input;
+        else
+            return  String.valueOf(httpRc);
+    }
 
 }

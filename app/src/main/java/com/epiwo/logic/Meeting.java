@@ -30,7 +30,7 @@ public class Meeting {
     static public List<Meeting> myMeetings = new LinkedList<>();
     static public List<Meeting> foundMeetings = new LinkedList<>();
 
-    public static long getID(List<Meeting> lista, int pos) { return lista.get(pos).id; }
+    public static long getId(List<Meeting> lista, int pos) { return lista.get(pos).id; }
 
     public static String getName(List<Meeting> lista, int pos) {
         return lista.get(pos).name;
@@ -95,13 +95,8 @@ public class Meeting {
         Log.i("#spotkan: ", String.valueOf(meetings.size()));
     }
 
-    public static void addMeeting(List<Meeting> target, Meeting item){
-
+    public static void addMeeting(List<Meeting> target, Meeting item) {
         target.add(item);
-//        meetings.add(item);
-
-//        if (item.isModerator())
-//            myMeetings.add(item);
     }
 
 
@@ -137,6 +132,20 @@ public class Meeting {
         maxDate = "";
         Siec.postFilterMeeting(name,place, minDate,maxDate,foods);
 
-         }
+    }
+
+    public static boolean isMeetingOnList(List<Meeting> meetings, long id){
+        for(int i=0; i<meetings.size(); i++)
+        {
+            if(getId(meetings,i) == id)
+                return true;
+        }
+        return false;
+    }
+
+    public static String joinMeeting(Meeting item){
+        return Siec.joinMeeting(item.getId());
+    }
+
 
 }

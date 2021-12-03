@@ -87,7 +87,6 @@ public class SearchFragment extends Fragment {
 
         Meeting.findMeeting(name.getText().toString(),place.getText().toString(),calendar,foods);
 
-        Toast.makeText(context, "szukam", Toast.LENGTH_SHORT).show();
 
         RecyclerView recyclerView = root.findViewById(R.id.found_meetings_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));

@@ -84,7 +84,6 @@ public class MainPage extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_search:
                 View v = page.findViewById(R.id.nav_host_fragment);
-                Toast.makeText(this, "chyba, że hoho", Toast.LENGTH_SHORT).show();
                 Navigation.findNavController(v).navigate(R.id.nav_search);
                 break;
         }

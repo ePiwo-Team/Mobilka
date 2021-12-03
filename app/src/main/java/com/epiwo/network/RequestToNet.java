@@ -39,7 +39,8 @@ public class RequestToNet extends AsyncTask<String, String, String> {
 
             urlConnection.connect();
 
-            if((strings[1] == Siec.POST) || (strings[1] == Siec.PUT)) {
+
+            if(((strings[1] == Siec.POST) || (strings[1] == Siec.PUT)) && (strings[2] != null) ) {
                 DataOutputStream os = new DataOutputStream(urlConnection.getOutputStream());
 
                 os.writeBytes(strings[2]);
