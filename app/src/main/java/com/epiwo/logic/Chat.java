@@ -55,6 +55,7 @@ public class Chat {
         ++ test_gen;
     }
 
+
     public void sendBalloon(String text) {
         talk.add(new Balloon(User.me.name,text));
     }

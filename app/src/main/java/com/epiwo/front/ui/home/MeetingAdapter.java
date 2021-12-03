@@ -27,6 +27,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MyMeetin
         holder.meetingDesc.setText(Meeting.getDesc(Meeting.meetings,position));
 
 
+
         // Osluga kliku na meetingu
         holder.itemView.setOnClickListener(v -> {
 
