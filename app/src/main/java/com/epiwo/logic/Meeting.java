@@ -9,6 +9,7 @@ import com.epiwo.network.Siec;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class Meeting {
     //static Meeting[] meetings = null;
     static public List<Meeting> meetings = new LinkedList<>();
     static public List<Meeting> myMeetings = new LinkedList<>();
+    static public List<Meeting> foundMeetings = new LinkedList<>();
 
     public static long getID(List<Meeting> lista, int pos) { return lista.get(pos).id; }
 
@@ -93,12 +95,13 @@ public class Meeting {
         Log.i("#spotkan: ", String.valueOf(meetings.size()));
     }
 
-    public static void addMeeting(Meeting item){
+    public static void addMeeting(List<Meeting> target, Meeting item){
 
-        meetings.add(item);
+        target.add(item);
+//        meetings.add(item);
 
-        if (item.isModerator())
-            myMeetings.add(item);
+//        if (item.isModerator())
+//            myMeetings.add(item);
     }
 
 
@@ -121,8 +124,19 @@ public class Meeting {
         this.moderator = moderator;
     }
 
-    public static void searchMeeting(Meeting item){
+    public static void findMeeting(String name, String place, Calendar date, List<Food> foods){
+        Meeting.foundMeetings = new LinkedList<>();
+        String minDate;
+        String maxDate;
+        final int offset = 3;       // odległość wyszukiwania w dniach
+        date.add(Calendar.DATE, offset);
+        maxDate = date.toInstant().toString();
+        date.add(Calendar.DATE, 2*(-offset));
+        minDate = date.toInstant().toString();
+        minDate = "";
+        maxDate = "";
+        Siec.postFilterMeeting(name,place, minDate,maxDate,foods);
 
-    }
+         }
 
 }

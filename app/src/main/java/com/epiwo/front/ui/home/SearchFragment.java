@@ -13,9 +13,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.epiwo.front.R;
 import com.epiwo.logic.Food;
@@ -31,13 +34,16 @@ public class SearchFragment extends Fragment {
    ArrayAdapter<String> adapter;
    ListView listViewData;
    EditText dateTime;
+   EditText name;
+   EditText place;
    Context context;
+   View root;
    final Calendar calendar=Calendar.getInstance();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_search, container, false);
+        root = inflater.inflate(R.layout.fragment_search, container, false);
 
         Button button = root.findViewById(R.id.button_search);
         context = root.getContext();
@@ -53,24 +59,16 @@ public class SearchFragment extends Fragment {
         listViewData.setAdapter(adapter);
 
 
-//
-//        RecyclerView recyclerView = root.findViewById(R.id.meetings_list);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-//        recyclerView.setAdapter(new MeetingAdapter());
-//        if (Meeting.count() == 0) {
-//            recyclerView.setVisibility(View.GONE);
-//        }
-//        else {
-//            recyclerView.setVisibility(View.VISIBLE);
-//        }
-//
+
+
+
 
         button.setOnClickListener(v -> {
 
-            EditText name = root.findViewById(R.id.editTextSearchMeetingName);
-            EditText place = root.findViewById(R.id.editTextSearchMeetingPlace);
+          name = root.findViewById(R.id.editTextSearchMeetingName);
+          place = root.findViewById(R.id.editTextSearchMeetingPlace);
 
-
+                searchMeeting(root);
             //        Meeting.downloadMeetings();
         });
 
@@ -79,8 +77,7 @@ public class SearchFragment extends Fragment {
 
 
     public void searchMeeting(View view){
-        Meeting newMeeting;
-        String info;
+
         List<Food> foods = new LinkedList<>();
         for(int i = 0; i<listViewData.getCount();i++){
             if(listViewData.isItemChecked(i)){
@@ -88,8 +85,13 @@ public class SearchFragment extends Fragment {
             }
         }
 
+        Meeting.findMeeting(name.getText().toString(),place.getText().toString(),calendar,foods);
 
+        Toast.makeText(context, "szukam", Toast.LENGTH_SHORT).show();
 
+        RecyclerView recyclerView = root.findViewById(R.id.found_meetings_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
+        recyclerView.setAdapter(new SearchMeetingAdapter());
 
     }
 

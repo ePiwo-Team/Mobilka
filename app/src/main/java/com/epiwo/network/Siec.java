@@ -199,6 +199,8 @@ public class Siec {
         String output = null;
         String input = null;
         List<Food> foods = new LinkedList<>();
+        Meeting newElement;
+
         try {
             output = backgroundSelf.execute(Siec.getSelfMeetingURL, Siec.GET, input).get();
 
@@ -220,7 +222,7 @@ public class Siec {
                     for(int j=0; j<jsonMeetingFoods.length();++j)
                         foods.add(Food.foods.get(Food.findFood(jsonMeetingFoods.getLong(j))));
 
-                    Meeting.addMeeting(new Meeting(
+                    newElement = new Meeting(
                             jsonMeeting.getInt("id"),
                             jsonMeeting.getString("name"),
                             jsonMeeting.getString("description"),
@@ -228,7 +230,9 @@ public class Siec {
                             jsonMeeting.getString("place"),
                             jsonMeeting.getString("dateAndTime"),
                             jsonMeeting.getBoolean("currentUserHost")
-                    ));
+                    );
+                    Meeting.addMeeting(Meeting.meetings,newElement);
+                    if (newElement.isModerator()) Meeting.addMeeting(Meeting.myMeetings,newElement);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -298,7 +302,7 @@ public class Siec {
         return false;
     }
 
-    public static boolean searchMeeting( Meeting item){
+    public static boolean postFilterMeeting( String name, String place, String minDate, String maxDate, List<Food> filterFoods){
 
         RequestToNet backgroundRegister = new RequestToNet();
         String output = null;
@@ -306,17 +310,21 @@ public class Siec {
 
         JSONObject jsonSentObject = new JSONObject();
         try {
-            jsonSentObject.put("name", item.getName());
-            jsonSentObject.put("dateAndTime", item.getDateAndTime());
-            jsonSentObject.put("place", item.getPlace());
+
             JSONArray foods = new JSONArray();
-            for (int i=0; i<item.getFoods().size(); ++i) foods.put(item.getFoods().get(i).getId());
-            jsonSentObject.put("foods", foods );
+            for (int i = 0; i < filterFoods.size(); ++i)
+                foods.put(filterFoods.get(i).getId());
+            jsonSentObject.put("foods", foods);
+            jsonSentObject.put("place",place);
+            jsonSentObject.put("name", name);
+            jsonSentObject.put("minDate", minDate);
+            jsonSentObject.put("maxDate", maxDate);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
         try {
-            input = backgroundRegister.execute(Siec.createMeetingURL, Siec.POST, jsonSentObject.toString()).get();
+            output = backgroundRegister.execute(Siec.searchMeetingURL, Siec.POST, jsonSentObject.toString()).get();
 
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -324,28 +332,30 @@ public class Siec {
             e.printStackTrace();
         }
         if(Siec.httpRc == 200) {
-//            try {
-//                JSONArray jsonLista = new JSONArray(output);
-//
-//                for (int i = 0; i < jsonLista.length(); ++i) {
-//                    JSONObject jsonMeeting = jsonLista.getJSONObject(i);
-//                    JSONArray jsonMeetingFoods = jsonMeeting.getJSONArray("foods");
-//                    for (int j = 0; j < jsonMeetingFoods.length(); ++j)
-//                        foods.add(Food.foods.get(Food.findFood(jsonMeetingFoods.getLong(j))));  //nie wiem co tu nie tak
-//
-//                    Meeting.addMeeting(new Meeting(
-//                            jsonMeeting.getInt("id"),
-//                            jsonMeeting.getString("name"),
-//                            jsonMeeting.getString("description"),
-//                            foods,
-//                            jsonMeeting.getString("place"),
-//                            jsonMeeting.getString("dateAndTime"),
-//                            jsonMeeting.getBoolean("currentUserHost")
-//                    ));
-//                }
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
+
+                try {
+                JSONArray jsonLista = new JSONArray(output);
+
+                for (int i = 0; i < jsonLista.length(); ++i) {
+                    JSONObject jsonMeeting = jsonLista.getJSONObject(i);
+                    List<Food> foods = new LinkedList<>();
+                    JSONArray jsonMeetingFoods = jsonMeeting.getJSONArray("foods");
+                    for (int j = 0; j < jsonMeetingFoods.length(); ++j)
+                        foods.add(Food.foods.get(Food.findFood(jsonMeetingFoods.getLong(j))));
+
+                    Meeting.addMeeting(Meeting.foundMeetings,new Meeting(
+                            jsonMeeting.getInt("id"),
+                            jsonMeeting.getString("name"),
+                            jsonMeeting.getString("description"),
+                            foods,
+                            jsonMeeting.getString("place"),
+                            jsonMeeting.getString("dateAndTime"),
+                            jsonMeeting.getBoolean("currentUserHost")
+                    ));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             return true;
         }
         return false;

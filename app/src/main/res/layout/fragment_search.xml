@@ -41,6 +41,10 @@
         android:layout_height="wrap_content"
         android:text="Button" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/found_meetings_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>
