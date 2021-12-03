@@ -8,16 +8,39 @@
     tools:context=".ui.home.HomeFragment" >
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/editTextSearchMeetingName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:hint="@string/name_hint" />
+
+    <EditText
+        android:id="@+id/editTextSearchMeetingDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/date_hint" />
+
+    <EditText
+        android:id="@+id/editTextSearchMeetingPlace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/place_hint" />
+
+    <ListView
+        android:id="@+id/listView_search_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:choiceMode="multipleChoice"/>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Button" />
+
+
+
 </LinearLayout>
