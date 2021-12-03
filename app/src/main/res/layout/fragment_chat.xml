@@ -8,7 +8,7 @@
 
 
         <TextView
-            android:id="@+id/test_tekst"
+            android:id="@+id/chat_name"
             android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:textSize="20dp"
@@ -24,21 +24,12 @@
             android:layout_marginTop="40dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
-            android:layout_alignTop="@id/test_tekst"
+            android:layout_alignTop="@id/chat_name"
             android:layout_above="@id/button_send_message"
             android:layout_alignParentStart="true"
             android:visibility="visible" >
 
         </androidx.recyclerview.widget.RecyclerView>
-
-        <Button
-            android:id="@+id/button_send_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:text="@string/send" />
 
         <EditText
             android:id="@+id/editTextMessage"
@@ -51,6 +42,15 @@
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@id/button_send_message"
             android:layout_toLeftOf="@id/button_send_message"
-            android:text="Name" />
+            android:hint="@string/chat_prompt" />
+
+        <Button
+            android:id="@+id/button_send_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/send" />
 
 </RelativeLayout>

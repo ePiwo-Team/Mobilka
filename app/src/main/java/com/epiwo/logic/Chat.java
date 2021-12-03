@@ -18,9 +18,8 @@ public class Chat {
             this.text = text;
         }
 
-        public String getText() {
-            return text;
-        }
+        public String getText() { return text; }
+        public String getUsr()  { return usr;  }
     }
 
     public List<Balloon> talk = new LinkedList<>();
@@ -56,7 +55,7 @@ public class Chat {
         ++ test_gen;
     }
 
-    public void sendBalloon(String text, String usr) {
-        talk.add(new Balloon(usr,text));
+    public void sendBalloon(String text) {
+        talk.add(new Balloon(User.me.name,text));
     }
 }

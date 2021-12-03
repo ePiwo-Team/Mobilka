@@ -1,8 +1,11 @@
 package com.epiwo.front.ui.chat;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.epiwo.front.R;
 import com.epiwo.logic.Chat;
+import com.epiwo.logic.User;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BalloonViewHolder> {
 
@@ -22,8 +26,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BalloonViewHol
 
     @Override
     public void onBindViewHolder(@NonNull BalloonViewHolder holder, int position) {
-        holder.tekst.setText(Chat.current.talk.get(position).getText());
 
+        if (User.me.name.compareTo(Chat.current.talk.get(position).getUsr())==0)
+            holder.tekst.setGravity(Gravity.END);
+        else
+            holder.nick.setText(Chat.current.talk.get(position).getUsr());
+        //holder.nick.setText(Chat.current.talk.get(position).getUsr());
+        holder.tekst.setText(Chat.current.talk.get(position).getText());
     }
 
     @Override
@@ -33,10 +42,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BalloonViewHol
 
     static class BalloonViewHolder extends RecyclerView.ViewHolder{
         TextView tekst;
+        TextView nick;
 
         public BalloonViewHolder(@NonNull View itemView) {
             super(itemView);
-            tekst =itemView.findViewById(R.id.balloon);
+            nick  = itemView.findViewById(R.id.balloon_nick);
+            tekst = itemView.findViewById(R.id.balloon);
         }
     }
 }

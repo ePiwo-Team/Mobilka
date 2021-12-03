@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.epiwo.front.MainPage;
@@ -30,16 +31,22 @@ public class ChatFragment extends Fragment {
 
          if (Chat.current==null) return root;
 
-        TextView test = root.findViewById(R.id.test_tekst);
-        test.setText(Chat.current.getName());
+        TextView meetingName = root.findViewById(R.id.chat_name);
+        meetingName.setText(Chat.current.getName());
 
         recyclerView = root.findViewById(R.id.chat);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         recyclerView.setAdapter(new ChatAdapter());
         recyclerView.scrollToPosition(Chat.current.talk.size()-1);
 
+        EditText message = root.findViewById(R.id.editTextMessage);
+
         Button buttonSend = root.findViewById(R.id.button_send_message);
         buttonSend.setOnClickListener(v -> {
+
+            Chat.current.sendBalloon(message.getText().toString());
+            message.setText("");
+            recyclerView.scrollToPosition(Chat.current.talk.size()-1);
 
         });
 
