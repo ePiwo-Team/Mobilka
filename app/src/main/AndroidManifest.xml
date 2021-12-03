@@ -12,6 +12,7 @@
         android:roundIcon="@drawable/ic_launch_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ingeniero"
+        android:screenOrientation="portrait"
         android:usesCleartextTraffic="true">
         <activity android:name=".AddMeeting"></activity>
         <activity
@@ -21,7 +22,6 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -121,4 +121,8 @@ public class Meeting {
         this.moderator = moderator;
     }
 
+    public static void searchMeeting(Meeting item){
+
+    }
+
 }
