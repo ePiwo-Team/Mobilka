@@ -31,7 +31,11 @@ public class ChatFragment extends Fragment {
 
          if (Chat.current==null) return root;
 
-        TextView meetingName = root.findViewById(R.id.chat_name);
+      EditText message = root.findViewById(R.id.editTextMessage);
+      Button buttonSend = root.findViewById(R.id.button_send_message);
+      TextView meetingName = root.findViewById(R.id.chat_name);
+
+
         meetingName.setText(Chat.current.getName());
 
         recyclerView = root.findViewById(R.id.chat);
@@ -39,9 +43,7 @@ public class ChatFragment extends Fragment {
         recyclerView.setAdapter(new ChatAdapter());
         recyclerView.scrollToPosition(Chat.current.talk.size()-1);
 
-        EditText message = root.findViewById(R.id.editTextMessage);
 
-        Button buttonSend = root.findViewById(R.id.button_send_message);
         buttonSend.setOnClickListener(v -> {
 
             Chat.current.sendBalloon(message.getText().toString());

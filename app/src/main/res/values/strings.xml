@@ -22,14 +22,17 @@
     <string name="meeting_desc_hint_short">Opis: </string>
     <string name="meeting_place_hint_short">Miejsce: </string>
     <string name="meeting_date_hint_short">Data: </string>
-    <string name="meeting_date_hint_users">Biorą udział:</string>
-
-
+    <string name="meeting_date_hint_users">Także biorą udział:</string>
+    <string name="leave_meeting">Opuść</string>
+    <string name="destroy_meeting">Odwołaj</string>
+    <string name="modify_meeting">Modyfikuj</string>
+    <string name="chat_meeting">Czat</string>
     <string name="date_hint">Data spotkania YYYY-MM-DD-HH-MM-SS</string>
     <string name="create_meeting">Utwórz spotkanie!</string>
     <string name="my_meetings">Moje spotkania</string>
     <string name="menu_home">Spotkania</string>
     <string name="menu_settings">Ustawienia konta</string>
+    <string name="host">Organizator</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.

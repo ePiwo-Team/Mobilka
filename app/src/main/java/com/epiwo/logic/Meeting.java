@@ -20,6 +20,9 @@ public class Meeting {
     private String desc;
     private String place;
     private List<Food> foods;
+
+    private List<Participant> participants;
+
     private String dateAndTime;
     private Chat chat;
     private boolean moderator;
@@ -29,6 +32,38 @@ public class Meeting {
     static public List<Meeting> meetings = new LinkedList<>();
     static public List<Meeting> myMeetings = new LinkedList<>();
     static public List<Meeting> foundMeetings = new LinkedList<>();
+
+
+    public Meeting(long id, String name, String desc, List<Food> foods, String place, String dateAndTime, boolean moderator) {
+        this.id = id;
+        this.name = name;
+        this.desc = desc;
+        this.moderator = moderator;
+        this.foods = foods;
+        this.place = place;
+        this.dateAndTime = dateAndTime;
+        this.participants = null;
+        this.setParticipants(Participant.getParticipants(id));
+        this.chat = new Chat(this);
+        this.chat.getAllBalloons();
+
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public void setDateAndTime(String dateAndTime) {
+        this.dateAndTime = dateAndTime;
+    }
 
     public static long getId(List<Meeting> lista, int pos) { return lista.get(pos).id; }
 
@@ -53,7 +88,13 @@ public class Meeting {
     public static boolean getModerator(List<Meeting> lista, int pos) { return lista.get(pos).moderator; }
 
 
+    public Chat getChat() {
+        return chat;
+    }
 
+    public List<Participant> getParticipants() {
+        return participants;
+    }
 
     public String getName() {
         return name;
@@ -75,6 +116,10 @@ public class Meeting {
 
     public String getDateAndTime() {
         return dateAndTime;
+    }
+
+    public void setParticipants(List<Participant> participants) {
+        this.participants = participants;
     }
 
     public boolean isModerator() {
@@ -107,17 +152,17 @@ public class Meeting {
             return "Błąd tworzenia: "+Siec.httpRc;
     }
 
-
-    public Meeting(long id, String name, String desc, List<Food> foods, String place, String dateAndTime, boolean moderator) {
-        this.id = id;
-        this.name = name;
-        this.desc = desc;
-        this.foods = foods;
-        this.place = place;
-        this.dateAndTime = dateAndTime;
-        this.chat = new Chat(name,id);
-        this.moderator = moderator;
+    public boolean updateMeeting(){
+        return  Siec.putMeetingEditMeeting(this);
     }
+
+    public boolean leaveMeeting(){
+        return Siec.postMeetingLeave(this.getId());
+    }
+    public boolean destroyMeeting(){
+        return Siec.deleteMeeting(this.getId());
+    }
+
 
     public static void findMeeting(String name, String place, Calendar date, List<Food> foods){
         Meeting.foundMeetings = new LinkedList<>();
@@ -146,6 +191,5 @@ public class Meeting {
     public static String joinMeeting(Meeting item){
         return Siec.joinMeeting(item.getId());
     }
-
 
 }

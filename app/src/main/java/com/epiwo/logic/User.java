@@ -15,7 +15,7 @@ public class User {
     public String phone;
     public String birthDate;
     public String email;
-
+    public long id = 1;
 
     public User(String name, String password, String phone, String birthDate, String email) {
         this.name = name;

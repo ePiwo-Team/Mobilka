@@ -3,6 +3,7 @@ package com.epiwo.network;
 import android.util.Log;
 import com.epiwo.logic.Food;
 import com.epiwo.logic.Meeting;
+import com.epiwo.logic.Participant;
 import com.epiwo.logic.User;
 
 import org.json.JSONArray;
@@ -16,14 +17,14 @@ import java.util.concurrent.ExecutionException;
 public class Siec {
     public static String address = "http://51.83.130.232:8080";
 
-    //userzy
+    // login
     public static String loginURL = address+ "/api/auth/login";
-    public static String registerURL = address+ "/api/user/register";
     public static String echoURL = address+ "/api/user/hellouser";
+    //user
+    public static String registerURL = address+ "/api/user/register";
     public static String selfURL = address+ "/api/user/getself";
     public static String updateUserURL = address+ "/api/user/modify";
     public static String deleteSelfURL = address+ "/api/user/delete";
-
     //spotkania
     public static String getSelfMeetingURL = address+ "/api/meeting/get_own";
     public static String createMeetingURL = address+ "/api/meeting/new_meeting";
@@ -31,6 +32,14 @@ public class Siec {
     public static String destroyMeetingURL = address+ "/api/meeting/delete_meeting?meetingId="; //dodać id meetingu do usuwania
     public static String joinMeetingURL = address+ "/api/meeting/join?meetingId=";
     public static String searchMeetingURL = address+ "/api/meeting/filter";
+    public static String getMeetingParticipantsURL = address + "/api/meeting/participants?meetingId=";
+    public static String postMeetingKickParticipantsURL = address+ "/api/meeting/kick_participants";
+    public static String putMeetingEditMeetingURL = address+ "/api/meeting/edit_meeting";
+    public static String postMeetingLeaveURL = address+ "/api/meeting/leave?meetingId=";
+    public static String deleteMeetingURL = address+ "/api/meeting/delete_meeting?meetingId=";
+    //czat
+    public static String getChatMessagesURL = address+ "/api/chat/get_messages?meetingId=";
+
 
     public static URL url;
     public static String jwt;
@@ -40,6 +49,9 @@ public class Siec {
     final public static String PUT = "PUT";
     final public static String DELETE ="DELETE";
     public static int httpRc = 418;
+
+
+    // login
 
     public static boolean loginNet(String login, String password) {
 
@@ -75,6 +87,26 @@ public class Siec {
             return false;
     }
 
+    public static String echo() {
+        RequestToNet backGroundEcho = new RequestToNet();
+        String output = null;
+        String input = null;
+        try {
+            output = backGroundEcho.execute(Siec.echoURL,Siec.GET, input).get();
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return output;
+
+    }
+
+
+    // user
+
     public static boolean register( User registrationData){
 
         RequestToNet backgroundRegister = new RequestToNet();
@@ -105,22 +137,7 @@ public class Siec {
         return false;
     }
 
-    public static String echo() {
-        RequestToNet backGroundEcho = new RequestToNet();
-        String output = null;
-        String input = null;
-        try {
-            output = backGroundEcho.execute(Siec.echoURL,Siec.GET, input).get();
 
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return output;
-
-    }
 
     public static String deleteSelfUser() {
         RequestToNet backGroundEcho = new RequestToNet();
@@ -159,6 +176,7 @@ public class Siec {
                 user.email = jsonUser.getString("email");
                 user.name = jsonUser.getString("name");
                 user.phone = jsonUser.getString("phoneNumber");
+                user.id = jsonUser.getLong("id");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -194,6 +212,9 @@ public class Siec {
 
         return false;
     }
+
+
+    // spotkania
 
     public static void getSelfMeetings() {
         RequestToNet backgroundSelf = new RequestToNet();
@@ -303,6 +324,7 @@ public class Siec {
         return false;
     }
 
+
     public static boolean postFilterMeeting( String name, String place, String minDate, String maxDate, List<Food> filterFoods){
 
         RequestToNet backgroundRegister = new RequestToNet();
@@ -381,5 +403,184 @@ public class Siec {
         else
             return  String.valueOf(httpRc);
     }
+
+
+    public static void getMeetingParticipants (long meetingId, List<Participant> list, long myUsr) {
+
+        RequestToNet backgroundRegister = new RequestToNet();
+        String output = null;
+        String input = null;
+
+        try {
+            input = backgroundRegister.execute(Siec.getMeetingParticipantsURL + String.valueOf(meetingId), Siec.GET, output).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (Siec.httpRc == 200) {
+
+            try {
+                JSONArray jsonLista = new JSONArray(input);
+
+                for (int i = 0; i < jsonLista.length(); ++i) {
+                    JSONObject jsonParticipant = jsonLista.getJSONObject(i);
+                    if (myUsr!=jsonParticipant.getLong("id"))
+                        list.add(new Participant(
+                                jsonParticipant.getLong("id"),
+                                jsonParticipant.getString("name"),
+                                jsonParticipant.getBoolean("host")
+                        ));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
+    public static boolean postMeetingKickParticipants( long meetingId, long userId){
+
+        RequestToNet backgroundRegister = new RequestToNet();
+        String output = null;
+        String input = null;
+
+        JSONObject jsonSentObject = new JSONObject();
+        try {
+
+            JSONArray participants = new JSONArray();
+
+            jsonSentObject.put("meetingId", meetingId);
+            participants.put(userId);
+            jsonSentObject.put("userIdList", participants);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            output = backgroundRegister.execute(Siec.postMeetingKickParticipantsURL, Siec.POST, jsonSentObject.toString()).get();
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(Siec.httpRc == 200) {
+            return true;
+        }
+        return false;
+    }
+
+
+//    putMeetingEditMeetingURL
+
+    public static boolean putMeetingEditMeeting (Meeting item){
+
+        RequestToNet backgroundRegister = new RequestToNet();
+        String output = null;
+        String input = null;
+
+        JSONObject jsonSentObject = new JSONObject();
+        try {
+            jsonSentObject.put("id", item.getId());
+            jsonSentObject.put("name", item.getName());
+            jsonSentObject.put("dateAndTime", item.getDateAndTime());
+            jsonSentObject.put("place", item.getPlace());
+            jsonSentObject.put("description", item.getDesc());
+            JSONArray foods = new JSONArray();
+            for (int i=0; i<item.getFoods().size(); ++i) foods.put(item.getFoods().get(i).getId());
+            jsonSentObject.put("foods", foods );
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            output = backgroundRegister.execute(Siec.putMeetingEditMeetingURL, Siec.PUT, jsonSentObject.toString()).get();
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(Siec.httpRc == 200) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean postMeetingLeave (long meetingId) {
+
+        RequestToNet backgroundRegister = new RequestToNet();
+        String output = null;
+        String input = null;
+
+        try {
+            input = backgroundRegister.execute(Siec.postMeetingLeaveURL + String.valueOf(meetingId), Siec.POST, output).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (Siec.httpRc == 200)
+            return true;
+        return false;
+    }
+
+
+
+    public static boolean deleteMeeting (long meetingId){
+        RequestToNet backgroundRegister = new RequestToNet();
+        String output = null;
+        String input = null;
+
+        try {
+            input = backgroundRegister.execute(Siec.deleteMeetingURL + String.valueOf(meetingId), Siec.DELETE, output).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (Siec.httpRc == 200)
+            return true;
+        return false;
+
+    }
+
+    public static void getChatMessages (Meeting meeting){
+        RequestToNet backgroundRegister = new RequestToNet();
+        String output = null;
+        String input = null;
+
+        try {
+            input = backgroundRegister.execute(Siec.getChatMessagesURL + String.valueOf(meeting.getId()), Siec.GET, output).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (Siec.httpRc == 200) {
+
+            try {
+                JSONArray jsonLista = new JSONArray(input);
+
+                for (int i = 0; i < jsonLista.length(); ++i) {
+                    JSONObject jsonBalloon = jsonLista.getJSONObject(i);
+                        meeting.getChat().addBalloon(
+                                jsonBalloon.getLong("messageId"),
+                                jsonBalloon.getLong("userId"),
+                                jsonBalloon.getString("messageText"),
+                                jsonBalloon.getString("createdAt")
+                        );
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    //http://51.83.130.232:8080/api/chat/get_messages?meetingId=2&messagesRequested=60&lastMessageId=1
 
 }

@@ -1,36 +1,51 @@
 package com.epiwo.logic;
 
+import com.epiwo.network.Siec;
+
 import java.util.LinkedList;
 import java.util.List;
 
 public class Chat {
 
-    static int test_gen=1;
-
-    public static Chat current=null;
-
-    public class Balloon {
-        String usr;  // Teraz jest nazwa ale moze trzeba zrobic obiekt User?
-        String text; // Na poczatek tekst. Rozwojowo moze tu byc wszystko.
-
-        public Balloon(String usr, String text) {
-            this.usr = usr;
-            this.text = text;
-        }
-
-        public String getText() { return text; }
-        public String getUsr()  { return usr;  }
-    }
+   public static Chat current=null;
 
     public List<Balloon> talk = new LinkedList<>();
-    private String name;
-    private long meetingID;
+    private String  name;
+    private Meeting meeting;
 
-    public Chat (String name, long meetingID) {
-        this.name = name;
-        this.meetingID = meetingID;
+    public class Balloon {
+        Long userId;
+        Long messageId;
+        String messageText;
+        String date;
+        String userName;
+        public Balloon(Long userId, Long messageId, String messageText, String date) {
+            this.userId = userId;
+            this.messageId = messageId;
+            this.messageText = messageText;
+            this.date = date;
 
-        getAllBalloons();
+            for (int i=0 ; i<meeting.getParticipants().size() ; ++i )
+                if (meeting.getParticipants().get(i).id==userId)
+                     userName = meeting.getParticipants().get(i).name;
+        }
+
+        public String getText() { return messageText; }
+        public String getUsr()  {
+            return userName;
+        }
+
+        public boolean itsMe () {
+            if(userId == User.me.id)
+                return true;
+            return false;
+        }
+
+    }
+
+    public Chat (Meeting meeting) {
+        this.name = meeting.getName();
+        this.meeting = meeting;
     }
 
     public String getName() {
@@ -38,25 +53,23 @@ public class Chat {
     }
 
     public void getAllBalloons() {
+        Siec.getChatMessages(meeting);
+    }
 
-        // Testowe budowanie gadki
-        for (int i=0 ; i<test_gen ; ++i) {
-            Balloon tmp = new Balloon(((i%2==0)?"Jozef":"Rys"),"powiedzial "+Integer.toString(i));
-            talk.add(tmp);
-        }
-        ++ test_gen;
+    public void addBalloon(Long userId, Long messageId, String messageText, String date){
+        talk.add(new Balloon(userId, messageId, messageText, date));
     }
 
     public void getNewBalloons() {
 
-        // Testowe budowanie gadki
-        Balloon tmp = new Balloon(((test_gen%2==0)?"Jozef":"Rys"),"dodal "+Integer.toString(test_gen));
-        talk.add(tmp);
-        ++ test_gen;
-    }
+//        // Testowe budowanie gadki
+//        Balloon tmp = new Balloon(((test_gen%2==0)?"Jozef":"Rys"),"dodal "+Integer.toString(test_gen));
+//        talk.add(tmp);
+//        ++ test_gen;
+     }
 
 
     public void sendBalloon(String text) {
-        talk.add(new Balloon(User.me.name,text));
+//        talk.add(new Balloon(User.me.name,text));
     }
 }

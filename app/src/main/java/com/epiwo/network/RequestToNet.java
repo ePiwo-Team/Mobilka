@@ -32,7 +32,7 @@ public class RequestToNet extends AsyncTask<String, String, String> {
             if(Siec.jwt != null){
                 urlConnection.setRequestProperty("Authorization","Bearer "+Siec.jwt);
             }
-            if(strings[1] == Siec.POST) {
+            if((strings[1] == Siec.POST) || (strings[1] == Siec.PUT)) {
                 urlConnection.setDoOutput(true);
                 urlConnection.setDoInput(true);
             }
@@ -64,6 +64,9 @@ public class RequestToNet extends AsyncTask<String, String, String> {
 
                 bufferedReader.close();
             }
+
+
+
 
             urlConnection.disconnect();
         } catch (IOException e) {
