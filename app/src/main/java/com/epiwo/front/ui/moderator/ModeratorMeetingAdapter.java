@@ -1,5 +1,4 @@
-package com.epiwo.front.ui.home;
-
+package com.epiwo.front.ui.moderator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,7 @@ import com.epiwo.front.R;
 import com.epiwo.logic.Chat;
 import com.epiwo.logic.Meeting;
 
-public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MyMeetingViewHolder> {
+public class ModeratorMeetingAdapter extends RecyclerView.Adapter<ModeratorMeetingAdapter.MyMeetingViewHolder> {
 
     @NonNull
     @Override
@@ -22,27 +21,21 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MyMeetin
 
     @Override
     public void onBindViewHolder(@NonNull MyMeetingViewHolder holder, int position) {
-        holder.meetingName.setText(Meeting.getName(Meeting.meetings,position));
-        holder.meetingPlace.setText(Meeting.getPlace(Meeting.meetings,position));
-        holder.meetingDesc.setText(Meeting.getDesc(Meeting.meetings,position));
-
-
+            holder.meetingName.setText(Meeting.getName(Meeting.myMeetings,position));
+            holder.meetingPlace.setText(Meeting.getPlace(Meeting.myMeetings,position));
+            holder.meetingDesc.setText(Meeting.getDesc(Meeting.myMeetings,position));
 
         // Osluga kliku na meetingu
         holder.itemView.setOnClickListener(v -> {
-            Meeting.current = Meeting.meetings.get(position);
+
+            Meeting.current = Meeting.myMeetings.get(position);
             Navigation.findNavController(v).navigate(R.id.nav_meeting_card);
         });
     }
 
     @Override
     public int getItemCount() {
-/*
-        if(Meeting.meetings == null)
-            return 0;
-        else
- */
-        return Meeting.count(Meeting.meetings);
+        return Meeting.count(Meeting.myMeetings);
     }
 
     static class MyMeetingViewHolder extends RecyclerView.ViewHolder{

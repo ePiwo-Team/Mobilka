@@ -12,6 +12,12 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/nav_chat"
+        android:name="com.epiwo.front.ui.chat.ChatFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_chat" />
+
+    <fragment
         android:id="@+id/nav_settings"
         android:name="com.epiwo.front.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
@@ -22,4 +28,22 @@
         android:name="com.epiwo.front.ui.logoutdestroy.LogoutFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_logout" />
+
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="com.epiwo.front.ui.home.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@id/nav_mod"
+        android:name="com.epiwo.front.ui.moderator.ModeratorFragment"
+        android:label="@string/my_meetings"
+        tools:layout="@layout/fragment_moderator"/>
+    <fragment
+        android:id="@+id/nav_meeting_card"
+        android:name="com.epiwo.front.ui.moderator.MeetingCardFragment"
+        android:label="Meeting Card"
+        tools:layout="@layout/fragment_meeting_card"/>
+
+
 </navigation>

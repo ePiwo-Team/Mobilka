@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.moderator.ModeratorFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/meetings_list"
+        android:id="@+id/moderated_meetings_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="15dp"
