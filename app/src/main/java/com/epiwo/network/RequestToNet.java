@@ -28,7 +28,7 @@ public class RequestToNet extends AsyncTask<String, String, String> {
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod(strings[1]);
             urlConnection.setRequestProperty("Content-Type","application/json;charset=UTF-8");
-            urlConnection.setRequestProperty("Accept","application/json");
+            urlConnection.setRequestProperty("Accept","application/json;charset=UTF-8");
             if(Siec.jwt != null){
                 urlConnection.setRequestProperty("Authorization","Bearer "+Siec.jwt);
             }

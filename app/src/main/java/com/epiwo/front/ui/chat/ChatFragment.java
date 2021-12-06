@@ -48,6 +48,7 @@ public class ChatFragment extends Fragment {
 
             Chat.current.sendBalloon(message.getText().toString());
             message.setText("");
+            ChatAdapter.currentChat.notifyItemInserted(Chat.current.talk.size());
             recyclerView.scrollToPosition(Chat.current.talk.size()-1);
 
         });

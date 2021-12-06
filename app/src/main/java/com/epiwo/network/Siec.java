@@ -426,8 +426,8 @@ public class Siec {
 
                 for (int i = 0; i < jsonLista.length(); ++i) {
                     JSONObject jsonParticipant = jsonLista.getJSONObject(i);
-                    if (myUsr!=jsonParticipant.getLong("id"))
-                        list.add(new Participant(
+//                    if (myUsr!=jsonParticipant.getLong("id"))
+                           list.add(new Participant(
                                 jsonParticipant.getLong("id"),
                                 jsonParticipant.getString("name"),
                                 jsonParticipant.getBoolean("host")
@@ -570,8 +570,8 @@ public class Siec {
                 for (int i = 0; i < jsonLista.length(); ++i) {
                     JSONObject jsonBalloon = jsonLista.getJSONObject(i);
                         meeting.getChat().addBalloon(
-                                jsonBalloon.getLong("messageId"),
                                 jsonBalloon.getLong("userId"),
+                                jsonBalloon.getLong("messageId"),
                                 jsonBalloon.getString("messageText"),
                                 jsonBalloon.getString("createdAt")
                         );
@@ -581,6 +581,7 @@ public class Siec {
             }
         }
     }
+    //Templatka brania wiadomości
     //http://51.83.130.232:8080/api/chat/get_messages?meetingId=2&messagesRequested=60&lastMessageId=1
 
 }

@@ -2,6 +2,7 @@ package com.epiwo.logic;
 
 import com.epiwo.network.Siec;
 
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,13 +13,14 @@ public class Chat {
     public List<Balloon> talk = new LinkedList<>();
     private String  name;
     private Meeting meeting;
-
+    long test = 1000;
     public class Balloon {
         Long userId;
         Long messageId;
         String messageText;
         String date;
         String userName;
+
         public Balloon(Long userId, Long messageId, String messageText, String date) {
             this.userId = userId;
             this.messageId = messageId;
@@ -60,16 +62,9 @@ public class Chat {
         talk.add(new Balloon(userId, messageId, messageText, date));
     }
 
-    public void getNewBalloons() {
-
-//        // Testowe budowanie gadki
-//        Balloon tmp = new Balloon(((test_gen%2==0)?"Jozef":"Rys"),"dodal "+Integer.toString(test_gen));
-//        talk.add(tmp);
-//        ++ test_gen;
-     }
-
 
     public void sendBalloon(String text) {
-//        talk.add(new Balloon(User.me.name,text));
+
+        talk.add(new Balloon(User.me.id, test++,text, Calendar.getInstance().toInstant().toString()));
     }
 }

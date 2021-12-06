@@ -17,10 +17,14 @@ import com.epiwo.logic.User;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BalloonViewHolder> {
 
+    public static ChatAdapter currentChat;
+
+
     @NonNull
     @Override
     public BalloonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
+        currentChat = this;
         return new BalloonViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_adapter,parent,false));
     }
 
