@@ -64,7 +64,9 @@ public class Chat {
 
 
     public void sendBalloon(String text) {
-
         talk.add(new Balloon(User.me.id, test++,text, Calendar.getInstance().toInstant().toString()));
+        Siec.postChatMessage(meeting.getId(),text);
+
     }
+
 }

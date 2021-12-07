@@ -39,6 +39,8 @@ public class Siec {
     public static String deleteMeetingURL = address+ "/api/meeting/delete_meeting?meetingId=";
     //czat
     public static String getChatMessagesURL = address+ "/api/chat/get_messages?meetingId=";
+    public static String postChatMessageURL = address+ "/api/chat/send_message";
+
 
 
     public static URL url;
@@ -583,5 +585,33 @@ public class Siec {
     }
     //Templatka brania wiadomości
     //http://51.83.130.232:8080/api/chat/get_messages?meetingId=2&messagesRequested=60&lastMessageId=1
+
+
+    public static boolean postChatMessage (long meetingId, String messageText){
+        RequestToNet backgroundRegister = new RequestToNet();
+        String output = null;
+        String input = null;
+
+        JSONObject jsonSentObject = new JSONObject();
+        try {
+            jsonSentObject.put("meetingId", meetingId);
+            jsonSentObject.put("messageText", messageText);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            output = backgroundRegister.execute(Siec.postChatMessageURL, Siec.POST, jsonSentObject.toString()).get();
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(Siec.httpRc == 200) {
+            return true;
+        }
+        return false;
+    }
 
 }

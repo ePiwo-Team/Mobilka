@@ -18,6 +18,7 @@ import com.epiwo.front.R;
 
 import com.epiwo.logic.Chat;
 import com.epiwo.logic.Meeting;
+import com.epiwo.network.Siec;
 
 
 public class ChatFragment extends Fragment {
@@ -50,6 +51,7 @@ public class ChatFragment extends Fragment {
             message.setText("");
             ChatAdapter.currentChat.notifyItemInserted(Chat.current.talk.size());
             recyclerView.scrollToPosition(Chat.current.talk.size()-1);
+
 
         });
 
