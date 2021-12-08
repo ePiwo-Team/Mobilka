@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.epiwo.front.MainPage;
 import com.epiwo.front.R;
@@ -36,22 +37,34 @@ public class ChatFragment extends Fragment {
       Button buttonSend = root.findViewById(R.id.button_send_message);
       TextView meetingName = root.findViewById(R.id.chat_name);
 
+      meetingName.setText(Chat.current.getName());
 
-        meetingName.setText(Chat.current.getName());
+      recyclerView = root.findViewById(R.id.chat);
+      LinearLayoutManager layoutManager = new LinearLayoutManager(root.getContext());
+      recyclerView.setLayoutManager(layoutManager);
+      ChatAdapter chatAdapter = new ChatAdapter();
+      recyclerView.setAdapter(chatAdapter);
+      recyclerView.scrollToPosition(Chat.current.talk.size()-1);
 
-        recyclerView = root.findViewById(R.id.chat);
-        recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-        recyclerView.setAdapter(new ChatAdapter());
-        recyclerView.scrollToPosition(Chat.current.talk.size()-1);
+      recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+          @Override
+          public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+              int x = layoutManager.findFirstCompletelyVisibleItemPosition();
+              if (x == 0) {
+                  if (Chat.current.getOldBalloons()>0) chatAdapter.notifyDataSetChanged();
+              }
+          }
+        });
 
 
         buttonSend.setOnClickListener(v -> {
 
             Chat.current.sendBalloon(message.getText().toString());
+            Chat.current.getAllBalloons();
             message.setText("");
-            ChatAdapter.currentChat.notifyItemInserted(Chat.current.talk.size());
+            chatAdapter.notifyDataSetChanged();
             recyclerView.scrollToPosition(Chat.current.talk.size()-1);
-
 
         });
 
@@ -61,7 +74,6 @@ public class ChatFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
         recyclerView.scrollToPosition(Chat.current.talk.size()-1);
     }
 

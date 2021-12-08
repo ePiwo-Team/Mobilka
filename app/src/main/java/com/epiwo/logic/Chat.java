@@ -8,20 +8,22 @@ import java.util.List;
 
 public class Chat {
 
-   public static Chat current=null;
+    public static Chat current=null;
+    public static final int bufforLen = 20;
 
     public List<Balloon> talk = new LinkedList<>();
+    private long    minId=0;
     private String  name;
     private Meeting meeting;
-    long test = 1000;
+
     public class Balloon {
-        Long userId;
-        Long messageId;
+        long userId;
+        long messageId;
         String messageText;
         String date;
         String userName;
 
-        public Balloon(Long userId, Long messageId, String messageText, String date) {
+        public Balloon(long userId, long messageId, String messageText, String date) {
             this.userId = userId;
             this.messageId = messageId;
             this.messageText = messageText;
@@ -55,18 +57,25 @@ public class Chat {
     }
 
     public void getAllBalloons() {
+
+        talk = new LinkedList<>();
+        minId=0;
         Siec.getChatMessages(meeting);
     }
 
-    public void addBalloon(Long userId, Long messageId, String messageText, String date){
-        talk.add(new Balloon(userId, messageId, messageText, date));
+    public int getOldBalloons() {
+        return Siec.getOldChatMessages(meeting,minId);
+    }
+
+    public void addBalloon(long userId, long messageId, String messageText, String date){
+
+        talk.add(0,new Balloon(userId, messageId, messageText, date));
+        if ((minId==0)||(messageId<minId)) minId = messageId;
     }
 
 
     public void sendBalloon(String text) {
-        talk.add(new Balloon(User.me.id, test++,text, Calendar.getInstance().toInstant().toString()));
         Siec.postChatMessage(meeting.getId(),text);
-
     }
 
 }

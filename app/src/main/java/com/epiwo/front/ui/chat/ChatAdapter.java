@@ -31,11 +31,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BalloonViewHol
     @Override
     public void onBindViewHolder(@NonNull BalloonViewHolder holder, int position) {
 
-//        if (User.me.name.compareTo(Chat.current.talk.get(position).getUsr())==0)
-//            holder.tekst.setGravity(Gravity.END);
-//        else
         holder.nick.setText(Chat.current.talk.get(position).getUsr());
-        //holder.nick.setText(Chat.current.talk.get(position).getUsr());
         holder.tekst.setText(Chat.current.talk.get(position).getText());
     }
 

@@ -1,6 +1,8 @@
 package com.epiwo.network;
 
 import android.util.Log;
+
+import com.epiwo.logic.Chat;
 import com.epiwo.logic.Food;
 import com.epiwo.logic.Meeting;
 import com.epiwo.logic.Participant;
@@ -552,12 +554,16 @@ public class Siec {
     }
 
     public static void getChatMessages (Meeting meeting){
+
         RequestToNet backgroundRegister = new RequestToNet();
         String output = null;
         String input = null;
+        String fullURL = Siec.getChatMessagesURL + String.valueOf(meeting.getId())
+                         + "&messagesRequested=" + String.valueOf(Chat.bufforLen);
+
 
         try {
-            input = backgroundRegister.execute(Siec.getChatMessagesURL + String.valueOf(meeting.getId()), Siec.GET, output).get();
+            input = backgroundRegister.execute(fullURL, Siec.GET, output).get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -583,8 +589,51 @@ public class Siec {
             }
         }
     }
-    //Templatka brania wiadomości
-    //http://51.83.130.232:8080/api/chat/get_messages?meetingId=2&messagesRequested=60&lastMessageId=1
+
+
+    public static int getOldChatMessages (Meeting meeting, long oldestMessageID) {
+
+        RequestToNet backgroundRegister = new RequestToNet();
+        String output = null;
+        String input = null;
+        String fullURL = Siec.getChatMessagesURL + String.valueOf(meeting.getId())
+                + "&messagesRequested=" + String.valueOf(Chat.bufforLen)
+                + "&lastMessageId=" + String.valueOf(oldestMessageID);
+        int counter=0;
+
+
+        try {
+            input = backgroundRegister.execute(fullURL, Siec.GET, output).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (Siec.httpRc == 200) {
+
+            try {
+                JSONArray jsonLista = new JSONArray(input);
+
+                for (counter = 0; counter < jsonLista.length(); ++counter) {
+                    JSONObject jsonBalloon = jsonLista.getJSONObject(counter);
+                    meeting.getChat().addBalloon(
+                            jsonBalloon.getLong("userId"),
+                            jsonBalloon.getLong("messageId"),
+                            jsonBalloon.getString("messageText"),
+                            jsonBalloon.getString("createdAt")
+                    );
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return counter;
+        }
+
+        return 0;
+
+    }
 
 
     public static boolean postChatMessage (long meetingId, String messageText){
