@@ -663,4 +663,39 @@ public class Siec {
         return false;
     }
 
+
+    public static long getLastChatMessages(Meeting meeting) {
+
+        RequestToNet backgroundRegister = new RequestToNet();
+        long   lastId = -1;
+        String output = null;
+        String input = null;
+        String fullURL = Siec.getChatMessagesURL + String.valueOf(meeting.getId()) + "&messagesRequested=1";
+
+        try {
+            input = backgroundRegister.execute(fullURL, Siec.GET, output).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (Siec.httpRc == 200) {
+
+            try {
+                JSONArray jsonLista = new JSONArray(input);
+
+                for (int i = 0; i < jsonLista.length(); ++i) {
+                    JSONObject jsonBalloon = jsonLista.getJSONObject(i);
+                    lastId = jsonBalloon.getLong("messageId");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return lastId;
+        }
+
+        return -1;
+    }
 }

@@ -26,6 +26,7 @@ public class ChatFragment extends Fragment {
 
     RecyclerView recyclerView;
 
+
   @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class ChatFragment extends Fragment {
       LinearLayoutManager layoutManager = new LinearLayoutManager(root.getContext());
       recyclerView.setLayoutManager(layoutManager);
       ChatAdapter chatAdapter = new ChatAdapter();
+      Chat.current.myAdapter = chatAdapter;
       recyclerView.setAdapter(chatAdapter);
       recyclerView.scrollToPosition(Chat.current.talk.size()-1);
 
@@ -74,7 +76,16 @@ public class ChatFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        Chat.current.onScreen = true;
+
         recyclerView.scrollToPosition(Chat.current.talk.size()-1);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        Chat.current.onScreen = false;
+    }
 }

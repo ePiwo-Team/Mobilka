@@ -52,11 +52,14 @@ public class User {
     }
 
     public void nullUserData(){
+
+        Chat.watchChat = false;
         name = null;
         phone = null;
         email = null;
         password = null;
         Siec.jwt = null;
+
     }
 
 }

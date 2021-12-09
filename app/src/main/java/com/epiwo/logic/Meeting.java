@@ -46,7 +46,7 @@ public class Meeting {
         this.setParticipants(Participant.getParticipants(id));
         this.chat = new Chat(this);
         this.chat.getAllBalloons();
-
+        this.chat.runBackGround();
     }
 
     public void setName(String name) {
