@@ -1,8 +1,12 @@
 package com.epiwo.front;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -14,8 +18,12 @@ import com.epiwo.network.Siec;
 
 import java.util.Objects;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 
 public class MainActivity extends AppCompatActivity {
+
+    public static NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +75,12 @@ public class MainActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.show();
 
-
-
     }
 
     public void rejestruj(View view) {
         Intent rejestracja = new Intent(this, Register.class);
         startActivity(rejestracja);
     }
+
 }
+

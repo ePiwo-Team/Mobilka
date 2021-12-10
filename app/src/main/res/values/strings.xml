@@ -14,6 +14,9 @@
     <string name="update">Zaktualizuj</string>
     <string name="menu_logout">Wyloguj</string>
     <string name="destroy_user">Usuń Konto</string>
+    <string name="channel_name">epiwochannel</string>
+    <string name="channel_description">kanalpowiadomien</string>
+    <string name="channel_id">epiwochannel</string>
 
     <string name="place_hint">Miejsce Spotkania:</string>
     <string name="desc_hint">Opis Spotkania:</string>

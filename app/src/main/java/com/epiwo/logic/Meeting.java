@@ -2,13 +2,8 @@ package com.epiwo.logic;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.epiwo.network.Siec;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -46,7 +41,7 @@ public class Meeting {
         this.setParticipants(Participant.getParticipants(id));
         this.chat = new Chat(this);
         this.chat.getAllBalloons();
-        this.chat.runBackGround();
+        this.chat.runBackground();
     }
 
     public void setName(String name) {

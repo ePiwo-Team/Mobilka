@@ -688,6 +688,8 @@ public class Siec {
                 for (int i = 0; i < jsonLista.length(); ++i) {
                     JSONObject jsonBalloon = jsonLista.getJSONObject(i);
                     lastId = jsonBalloon.getLong("messageId");
+//                            jsonBalloon.getLong("userId");
+//                            jsonBalloon.getString("messageText");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
