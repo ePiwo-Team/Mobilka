@@ -33,6 +33,7 @@ public class MainPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         page = this;
         setContentView(activity_meetings);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -90,4 +91,6 @@ public class MainPage extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

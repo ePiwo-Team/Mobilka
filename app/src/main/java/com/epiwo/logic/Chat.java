@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationCompat;
 
 import com.epiwo.front.MainPage;
@@ -88,6 +91,7 @@ public class Chat {
 
         talk = new LinkedList<>();
         minId=0;
+
         lastAuthor = null;
         lastText   = null;
         Siec.getChatMessages(meeting);
@@ -110,7 +114,7 @@ public class Chat {
     public void sendBalloon(String text) {
 
         Siec.postChatMessage(meeting.getId(),text);
-        if (sleepTime>1) sleepTime = sleepTime/2;
+        if (sleepTime>2000) sleepTime = sleepTime/2;
     }
 
 
@@ -125,7 +129,7 @@ public class Chat {
                     return;
 
                 if ((maxId!=0)&&(Siec.getLastChatMessages(meeting)>maxId)) {
-                    if (sleepTime>1) sleepTime = sleepTime/2;
+                    if (sleepTime>2000) sleepTime = sleepTime/2;
                     if (onScreen) {
                         getAllBalloons();
                         myAdapter.notifyDataSetChanged();
@@ -137,14 +141,14 @@ public class Chat {
                     }
                 }
                 else
-                    sleepTime = sleepTime+10;
+                    sleepTime = sleepTime+1000;
 
                 // activity control
                 if (onScreen) {
-                    if (sleepTime>1000) sleepTime = sleepTime-1;
+                    if (sleepTime>1000) sleepTime = sleepTime-100;
                 }
                 else
-                    sleepTime = sleepTime+1;
+                    sleepTime = sleepTime+100;
                 checker.postDelayed(this,sleepTime);
             }
         });
@@ -165,16 +169,23 @@ public class Chat {
             uninitNotification = false;
         }
 
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(MainPage.page, "1")
-                .setSmallIcon(R.drawable.ic_search)
-                .setContentTitle(meetingName)
-                .setContentText(text)
-                .setDefaults(NotificationCompat.DEFAULT_SOUND | NotificationCompat.DEFAULT_VIBRATE) //Important for heads-up notification
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT); //Important for heads-up notification
+        Intent intent = new Intent(MainPage.page, MainPage.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(MainPage.page,0,intent,0);
 
-        Notification buildNotification = mBuilder.build();
-        NotificationManager mNotifyMgr = (NotificationManager) MainPage.page.getSystemService(Activity.NOTIFICATION_SERVICE);
-        mNotifyMgr.notify(++notificationId, buildNotification);
-     }
+
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(MainPage.page, "1")
+                    .setSmallIcon(R.drawable.ic_search)
+                    .setContentTitle(meetingName)
+                    .setContentText(text)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true)
+                    .setDefaults(NotificationCompat.DEFAULT_SOUND | NotificationCompat.DEFAULT_VIBRATE) //Important for heads-up notification
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT); //Important for heads-up notification
+
+            Notification buildNotification = mBuilder.build();
+            NotificationManager mNotifyMgr = (NotificationManager) MainPage.page.getSystemService(Activity.NOTIFICATION_SERVICE);
+            mNotifyMgr.notify(++notificationId, buildNotification);
+
+    }
 
 }
