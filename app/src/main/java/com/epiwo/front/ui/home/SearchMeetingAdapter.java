@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +52,7 @@ public class SearchMeetingAdapter extends RecyclerView.Adapter<SearchMeetingAdap
         TextView meetingName;
         TextView meetingDesc;
         TextView meetingPlace;
-        Button buttonJoin;
+        ImageView buttonJoin;
         public MyMeetingViewHolder(@NonNull View itemView) {
             super(itemView);
             buttonJoin = itemView.findViewById(R.id.button_join);

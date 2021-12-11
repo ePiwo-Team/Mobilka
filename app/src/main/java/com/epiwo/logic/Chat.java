@@ -8,9 +8,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationCompat;
 
 import com.epiwo.front.MainPage;
@@ -174,7 +172,7 @@ public class Chat {
 
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(MainPage.page, "1")
-                    .setSmallIcon(R.drawable.ic_search)
+                    .setSmallIcon(R.drawable.chat_teardrop_dots)
                     .setContentTitle(meetingName)
                     .setContentText(text)
                     .setContentIntent(pendingIntent)

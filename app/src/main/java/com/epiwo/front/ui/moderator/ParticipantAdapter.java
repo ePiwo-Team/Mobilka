@@ -4,6 +4,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,7 +55,7 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
 
     static class ParticipantViewHolder extends RecyclerView.ViewHolder{
         TextView participantName;
-        Button participantKick;
+        ImageView participantKick;
         public ParticipantViewHolder(@NonNull View itemView) {
             super(itemView);
             participantName =itemView.findViewById(R.id.participant_name);
