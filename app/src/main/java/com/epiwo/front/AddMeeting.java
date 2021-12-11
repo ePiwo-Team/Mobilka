@@ -7,11 +7,13 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import android.text.InputType;
 
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 
 
@@ -25,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class AddMeeting extends AppCompatActivity {
@@ -38,6 +41,8 @@ public class AddMeeting extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.new_meeting);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.add_meeting_activity);
         context = this;
         Food.loadFoods();
