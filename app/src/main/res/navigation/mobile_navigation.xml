@@ -26,13 +26,13 @@
     <fragment
         android:id="@+id/nav_logout"
         android:name="com.epiwo.front.ui.logoutdestroy.LogoutFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/logged_out"
         tools:layout="@layout/fragment_logout" />
 
     <fragment
         android:id="@+id/nav_search"
         android:name="com.epiwo.front.ui.home.SearchFragment"
-        android:label="Search"
+        android:label="@string/search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@id/nav_mod"
@@ -42,8 +42,14 @@
     <fragment
         android:id="@+id/nav_meeting_card"
         android:name="com.epiwo.front.ui.moderator.MeetingCardFragment"
-        android:label="Meeting Card"
+        android:label="@string/meeting_details"
         tools:layout="@layout/fragment_meeting_card"/>
+
+    <fragment
+        android:id="@+id/nav_change_password"
+        android:name="com.epiwo.front.ui.settings.ChangePasswordFragment"
+        android:label="Zmiana hasła"
+        tools:layout="@layout/fragment_change_password"/>
 
 
 </navigation>

@@ -31,6 +31,7 @@ public class SettingsFragment extends Fragment {
 
         Button buttonDestroy = root.findViewById(R.id.button_destroy);
         Button updateButton = root.findViewById(R.id.buttonUpdate);
+        Button goToChange = root.findViewById(R.id.button_goto_change_password);
         EditText editEmail = root.findViewById(R.id.editEmail);
         EditText editName = root.findViewById(R.id.editName);
         EditText editPhoneNumber = root.findViewById(R.id.editPhone);
@@ -45,27 +46,26 @@ public class SettingsFragment extends Fragment {
             EditText editEmail1 = root.findViewById(R.id.editEmail);
             EditText editName1 = root.findViewById(R.id.editName);
             EditText editPhoneNumber1 = root.findViewById(R.id.editPhone);
-            EditText editPassword = root.findViewById(R.id.editPassword);
-            EditText repeatPassword = root.findViewById(R.id.editPasswordRepeat);
+
 
 
             user.email = editEmail1.getText().toString();
             user.name = editName1.getText().toString();
             user.phone = editPhoneNumber1.getText().toString();
-            user.password = editPassword.getText().toString();
 
 
-            if( user.checkPassword(repeatPassword.getText().toString())) {
-                Siec.updateUserData(user);
-                Toast.makeText(getActivity(),"Dane zostały zaktualizowane", Toast.LENGTH_SHORT).show();
-                Navigation.findNavController(v).navigate(R.id.nav_home);
-            }
-            else{
-                String text = getResources().getString(R.string.niezgodnehasla);
-                Toast.makeText(getActivity(),text, Toast.LENGTH_LONG).show();
-            }
+            Siec.updateUserData(user);
+            Toast.makeText(getActivity(),"Dane zostały zaktualizowane", Toast.LENGTH_SHORT).show();
+            Navigation.findNavController(v).navigate(R.id.nav_home);
+
+
 
         });
+
+        goToChange.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.nav_change_password);
+        });
+
 
         buttonDestroy.setOnClickListener(v -> {
             Siec.deleteSelfUser();

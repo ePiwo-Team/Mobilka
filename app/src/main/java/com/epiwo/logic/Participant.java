@@ -3,10 +3,12 @@ package com.epiwo.logic;
 import android.widget.Toast;
 
 import com.epiwo.front.MainPage;
+import com.epiwo.front.R;
 import com.epiwo.network.Siec;
 
 import java.util.LinkedList;
 import java.util.List;
+
 
 public class Participant {
 
@@ -23,7 +25,7 @@ public class Participant {
 
     public void removeParticipant (Meeting meeting) {
 
-        String resp = "Wyrzucony za drzwi!";
+        String resp = MainPage.page.getString(R.string.kicked_user);
 
 
         meeting.getParticipants().remove(this);

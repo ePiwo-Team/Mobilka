@@ -3,9 +3,11 @@ package com.epiwo.network;
 import android.os.AsyncTask;
 import android.util.Log;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -27,8 +29,8 @@ public class RequestToNet extends AsyncTask<String, String, String> {
             url = new URL(strings[0]);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod(strings[1]);
-            urlConnection.setRequestProperty("Content-Type","application/json;charset=UTF-8");
-            urlConnection.setRequestProperty("Accept","application/json;charset=UTF-8");
+            urlConnection.setRequestProperty("Content-Type","application/json");
+            urlConnection.setRequestProperty("Accept","application/json");
             if(Siec.jwt != null){
                 urlConnection.setRequestProperty("Authorization","Bearer "+Siec.jwt);
             }
@@ -42,9 +44,12 @@ public class RequestToNet extends AsyncTask<String, String, String> {
 
             if(((strings[1] == Siec.POST) || (strings[1] == Siec.PUT)) && (strings[2] != null) ) {
                 DataOutputStream os = new DataOutputStream(urlConnection.getOutputStream());
-
-                os.writeBytes(strings[2]);
-                os.flush();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                writer.write(strings[2]);
+                writer.flush();
+                writer.close();
+//                os.writeBytes(strings[2]);
+//                os.flush();
                 os.close();
             }
 

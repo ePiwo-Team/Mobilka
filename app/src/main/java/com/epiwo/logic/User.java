@@ -29,6 +29,7 @@ public class User {
     public User(String name, String password) {
         activeAuth = Siec.loginNet(name, password);
         me = this;
+        me.password = password;
     }
 
     public Boolean test(){

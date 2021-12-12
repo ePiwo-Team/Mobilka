@@ -49,7 +49,7 @@ public class Chat {
         long messageId;
         String messageText;
         String date;
-        String userName;
+        String userName = null;
 
         public Balloon(long userId, long messageId, String messageText, String date) {
             this.userId = userId;
@@ -57,9 +57,12 @@ public class Chat {
             this.messageText = messageText;
             this.date = date;
 
-            for (int i=0 ; i<meeting.getParticipants().size() ; ++i )
-                if (meeting.getParticipants().get(i).id==userId)
-                     userName = meeting.getParticipants().get(i).name;
+            for (int i=0 ; i<meeting.getParticipants().size() ; ++i ) {
+                if (meeting.getParticipants().get(i).id == userId)
+                    userName = meeting.getParticipants().get(i).name;
+            }
+            if(userName == null)
+                userName = MainPage.page.getString(R.string.kicked_user_tag);
         }
 
         public String getText() { return messageText; }
