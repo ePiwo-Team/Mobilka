@@ -25,6 +25,8 @@ import static androidx.core.content.ContextCompat.getSystemService;
 
 public class Chat {
 
+    public static boolean notifyOn = true;
+
     public static final int bufforLen = 20;
     public static Chat current=null;
     public static boolean watchChat=false;
@@ -157,7 +159,7 @@ public class Chat {
 
 
     void popup (String meetingName,String text){
-
+        if(!notifyOn){ return; }
         if (uninitNotification &&(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)) {
             String name = MainPage.page.getString(R.string.app_name);
             int importance = NotificationManager.IMPORTANCE_DEFAULT; //Important for heads-up notification

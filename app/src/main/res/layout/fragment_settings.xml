@@ -8,12 +8,6 @@
     tools:context=".ui.settings.SettingsFragment">
 
 
-
-    <!--   "email": "admin@admin.pl",
-  "password": "admin1",
-  "name": "admin",
-  "phoneNumber": "+666999666" -->
-
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -76,6 +70,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Name" />
+
         </TableRow>
 
     </TableLayout>
@@ -84,7 +79,6 @@
         android:id="@+id/buttonUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="50dp"
         android:text="@string/update"
         android:textColor="@color/black" />
 
@@ -92,14 +86,20 @@
         android:id="@+id/button_goto_change_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="@string/change_password_title" />
+        android:text="@string/change_password_title"
+        android:textColor="@color/black" />
+
+    <Button
+        android:id="@+id/button_notifications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/notification_on"
+        android:textColor="@color/black" />
 
     <Button
         android:id="@+id/button_destroy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:text="@string/destroy_user"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -15,7 +15,9 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.epiwo.front.MainActivity;
+import com.epiwo.front.MainPage;
 import com.epiwo.front.R;
+import com.epiwo.logic.Chat;
 import com.epiwo.logic.User;
 import com.epiwo.network.Siec;
 
@@ -32,6 +34,7 @@ public class SettingsFragment extends Fragment {
         Button buttonDestroy = root.findViewById(R.id.button_destroy);
         Button updateButton = root.findViewById(R.id.buttonUpdate);
         Button goToChange = root.findViewById(R.id.button_goto_change_password);
+        Button notification = root.findViewById(R.id.button_notifications);
         EditText editEmail = root.findViewById(R.id.editEmail);
         EditText editName = root.findViewById(R.id.editName);
         EditText editPhoneNumber = root.findViewById(R.id.editPhone);
@@ -66,6 +69,13 @@ public class SettingsFragment extends Fragment {
             Navigation.findNavController(v).navigate(R.id.nav_change_password);
         });
 
+        notification.setOnClickListener(v -> {
+            Chat.notifyOn = !Chat.notifyOn;
+            if(Chat.notifyOn)
+                notification.setText(MainPage.page.getString(R.string.notification_on));
+            else
+                notification.setText(MainPage.page.getString(R.string.notification_off));
+        });
 
         buttonDestroy.setOnClickListener(v -> {
             Siec.deleteSelfUser();
