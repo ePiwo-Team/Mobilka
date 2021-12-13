@@ -52,7 +52,7 @@ public class ChatFragment extends Fragment {
 
           @Override
           public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-              int x = layoutManager.findFirstCompletelyVisibleItemPosition();
+              int x = layoutManager.findFirstVisibleItemPosition();
               if (x == 0) {
                   if (Chat.current.getOldBalloons()>0) chatAdapter.notifyDataSetChanged();
               }

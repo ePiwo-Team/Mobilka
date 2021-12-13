@@ -152,9 +152,12 @@ public class Meeting {
     }
 
     public boolean leaveMeeting(){
+        chat.watchChat = false;
         return Siec.postMeetingLeave(this.getId());
     }
     public boolean destroyMeeting(){
+
+        chat.watchChat = false;
         return Siec.deleteMeeting(this.getId());
     }
 

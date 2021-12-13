@@ -26,16 +26,16 @@ import static androidx.core.content.ContextCompat.getSystemService;
 public class Chat {
 
     public static boolean notifyOn = true;
-
     public static final int bufforLen = 20;
     public static Chat current=null;
-    public static boolean watchChat=false;
+
 
     public static boolean uninitNotification = true;
 
     public List<Balloon> talk = new LinkedList<>();
     public boolean onScreen = false;
     public ChatAdapter myAdapter;
+    public boolean watchChat=false;
 
     private String  lastText;
     private String  lastAuthor;
@@ -131,7 +131,7 @@ public class Chat {
                 if (!watchChat)
                     return;
 
-                if ((maxId!=0)&&(Siec.getLastChatMessages(meeting)>maxId)) {
+                if ((maxId!=0)&&(Siec.getLastChatMessages(meeting)>maxId)&&(notifyOn)) {
                     if (sleepTime>2000) sleepTime = sleepTime/2;
                     if (onScreen) {
                         getAllBalloons();
@@ -188,6 +188,7 @@ public class Chat {
             Notification buildNotification = mBuilder.build();
             NotificationManager mNotifyMgr = (NotificationManager) MainPage.page.getSystemService(Activity.NOTIFICATION_SERVICE);
             mNotifyMgr.notify(++notificationId, buildNotification);
+
 
     }
 

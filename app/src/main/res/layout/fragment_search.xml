@@ -39,7 +39,7 @@
         android:id="@+id/button_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="@string/search_button" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/found_meetings_list"

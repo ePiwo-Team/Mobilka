@@ -3,6 +3,7 @@ package com.epiwo.logic;
 
 import com.epiwo.network.Siec;
 
+import java.util.LinkedList;
 import java.util.Objects;
 
 public class User {
@@ -54,7 +55,8 @@ public class User {
 
     public void nullUserData(){
 
-        Chat.watchChat = false;
+        Meeting.meetings = new LinkedList<>();
+
         name = null;
         phone = null;
         email = null;
