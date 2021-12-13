@@ -115,7 +115,8 @@ public class Chat {
     public void sendBalloon(String text) {
 
         Siec.postChatMessage(meeting.getId(),text);
-        if (sleepTime>2000) sleepTime = sleepTime/2;
+        getAllBalloons();
+        if (sleepTime>1000) sleepTime = sleepTime/2;
     }
 
 
@@ -130,7 +131,7 @@ public class Chat {
                     return;
 
                 if ((maxId!=0)&&(Siec.getLastChatMessages(meeting)>maxId)&&(notifyOn)) {
-                    if (sleepTime>2000) sleepTime = sleepTime/2;
+                    if (sleepTime>1000) sleepTime = sleepTime/2;
                     if (onScreen) {
                         getAllBalloons();
                         myAdapter.notifyDataSetChanged();
@@ -142,14 +143,14 @@ public class Chat {
                     }
                 }
                 else
-                    sleepTime = sleepTime+1000;
+                    sleepTime = sleepTime+10;
 
                 // activity control
                 if (onScreen) {
                     if (sleepTime>1000) sleepTime = sleepTime-100;
                 }
                 else
-                    sleepTime = sleepTime+100;
+                    sleepTime = sleepTime+10;
                 checker.postDelayed(this,sleepTime);
             }
         });

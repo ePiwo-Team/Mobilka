@@ -194,6 +194,12 @@ public class Meeting {
     }
 
     public static String joinMeeting(Meeting item){
+        if (item.chat==null) {
+            item.chat = new Chat(item);
+            item.chat.getAllBalloons();
+            item.chat.runBackground();
+        }
+        Meeting.addMeeting(Meeting.meetings, item);
         return Siec.joinMeeting(item.getId());
     }
 

@@ -37,7 +37,7 @@ public class SearchMeetingAdapter extends RecyclerView.Adapter<SearchMeetingAdap
         // Osluga kliku na meetingu
         holder.buttonJoin.setOnClickListener(v -> {
             holder.buttonJoin.setVisibility(View.GONE);
-            Meeting.addMeeting(Meeting.meetings, Meeting.foundMeetings.get(position));
+            //Meeting.addMeeting(Meeting.meetings, Meeting.foundMeetings.get(position));
             String resp = Meeting.joinMeeting(Meeting.foundMeetings.get(position));
             Toast.makeText(MainPage.page, resp, Toast.LENGTH_SHORT ).show();
         });
