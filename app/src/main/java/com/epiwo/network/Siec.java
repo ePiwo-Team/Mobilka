@@ -255,7 +255,8 @@ public class Siec {
                             foods,
                             jsonMeeting.getString("place"),
                             jsonMeeting.getString("dateAndTime"),
-                            jsonMeeting.getBoolean("currentUserHost")
+                            jsonMeeting.getBoolean("currentUserHost"),
+                            true
                     );
                     Meeting.addMeeting(Meeting.meetings,newElement);
                     if (newElement.isModerator()) Meeting.addMeeting(Meeting.myMeetings,newElement);
@@ -377,7 +378,8 @@ public class Siec {
                             foods,
                             jsonMeeting.getString("place"),
                             jsonMeeting.getString("dateAndTime"),
-                            jsonMeeting.getBoolean("currentUserHost")
+                            jsonMeeting.getBoolean("currentUserHost"),
+                            false
                     ));
                 }
             } catch (JSONException e) {

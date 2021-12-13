@@ -160,7 +160,7 @@ public class Chat {
         if(!notifyOn){ return; }
         if (uninitNotification &&(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)) {
             String name = MainPage.page.getString(R.string.app_name);
-            int importance = NotificationManager.IMPORTANCE_DEFAULT; //Important for heads-up notification
+            int importance = NotificationManager.IMPORTANCE_HIGH; //Important for heads-up notification
             NotificationChannel channel = new NotificationChannel(name,name,importance);
             channel.setDescription(MainPage.page.getString(R.string.channel_description));
             channel.setShowBadge(true);
@@ -181,7 +181,7 @@ public class Chat {
                     .setContentIntent(pendingIntent)
                     .setAutoCancel(true)
                     .setDefaults(NotificationCompat.DEFAULT_SOUND | NotificationCompat.DEFAULT_VIBRATE) //Important for heads-up notification
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT); //Important for heads-up notification
+                    .setPriority(NotificationCompat.PRIORITY_MAX); //Important for heads-up notification
 
             Notification buildNotification = mBuilder.build();
             NotificationManager mNotifyMgr = (NotificationManager) MainPage.page.getSystemService(Activity.NOTIFICATION_SERVICE);

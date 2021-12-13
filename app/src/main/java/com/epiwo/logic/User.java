@@ -55,7 +55,10 @@ public class User {
 
     public void nullUserData(){
 
-        Meeting.meetings = new LinkedList<>();
+//        Meeting.meetings = new LinkedList<>();
+
+        Meeting.meetings = Meeting.clearMeetingList(Meeting.meetings);
+        Meeting.myMeetings = Meeting.clearMeetingList(Meeting.myMeetings);
 
         name = null;
         phone = null;

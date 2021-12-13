@@ -58,18 +58,12 @@ public class SearchFragment extends Fragment {
         adapter = new ArrayAdapter<>(root.getContext(), android.R.layout.simple_list_item_multiple_choice, Food.listToArray());
         listViewData.setAdapter(adapter);
 
-
-
-
-
-
         button.setOnClickListener(v -> {
 
           name = root.findViewById(R.id.editTextSearchMeetingName);
           place = root.findViewById(R.id.editTextSearchMeetingPlace);
 
-                searchMeeting(root);
-            //        Meeting.downloadMeetings();
+          searchMeeting(root);
         });
 
         return root;
@@ -86,7 +80,6 @@ public class SearchFragment extends Fragment {
         }
 
         Meeting.findMeeting(name.getText().toString(),place.getText().toString(),calendar,foods);
-
 
         RecyclerView recyclerView = root.findViewById(R.id.found_meetings_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));

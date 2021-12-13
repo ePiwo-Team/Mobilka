@@ -19,7 +19,7 @@ public class Meeting {
     private List<Participant> participants;
 
     private String dateAndTime;
-    private Chat chat;
+    private Chat chat=null;
     private boolean moderator;
     static public Meeting current = null;
 
@@ -29,7 +29,7 @@ public class Meeting {
     static public List<Meeting> foundMeetings = new LinkedList<>();
 
 
-    public Meeting(long id, String name, String desc, List<Food> foods, String place, String dateAndTime, boolean moderator) {
+    public Meeting(long id, String name, String desc, List<Food> foods, String place, String dateAndTime, boolean moderator, boolean chatOn) {
         this.id = id;
         this.name = name;
         this.desc = desc;
@@ -39,9 +39,11 @@ public class Meeting {
         this.dateAndTime = dateAndTime;
         this.participants = null;
         this.setParticipants(Participant.getParticipants(id));
-        this.chat = new Chat(this);
-        this.chat.getAllBalloons();
-        this.chat.runBackground();
+        if (chatOn) {
+            this.chat = new Chat(this);
+            this.chat.getAllBalloons();
+            this.chat.runBackground();
+        }
     }
 
     public void setName(String name) {
@@ -127,8 +129,11 @@ public class Meeting {
 
 
     public static void downloadMeetings(){
-        meetings=new LinkedList<>();
-        myMeetings=new LinkedList<>();
+//        meetings=new LinkedList<>();
+//        myMeetings=new LinkedList<>();
+
+        meetings = clearMeetingList(meetings);
+        myMeetings = clearMeetingList(myMeetings);
 
         Siec.getSelfMeetings();
 
@@ -155,15 +160,17 @@ public class Meeting {
         chat.watchChat = false;
         return Siec.postMeetingLeave(this.getId());
     }
-    public boolean destroyMeeting(){
 
+    public boolean destroyMeeting(){
         chat.watchChat = false;
         return Siec.deleteMeeting(this.getId());
     }
 
 
     public static void findMeeting(String name, String place, Calendar date, List<Food> foods){
-        Meeting.foundMeetings = new LinkedList<>();
+ //       Meeting.foundMeetings = new LinkedList<>();
+        Meeting.foundMeetings = clearMeetingList(Meeting.foundMeetings);
+
         String minDate;
         String maxDate;
         final int offset = 3;       // odległość wyszukiwania w dniach
@@ -190,4 +197,19 @@ public class Meeting {
         return Siec.joinMeeting(item.getId());
     }
 
+    public static List<Meeting> clearMeetingList (List<Meeting> list) {
+
+        // Jak czlowiek sam nie posprząta, to Java za niego tego nie zrobi.
+        // Ponizej kroki czyszczenia listy, zanim ja jeszcze raz zaladujemy
+
+        for ( int i=0 ; i<list.size() ; ++i ) {
+            // wylaczanie czatow
+            if (list.get(i).chat!=null) {
+                list.get(i).chat.watchChat = false;
+                list.get(i).chat = null;
+            }
+        }
+
+        return new LinkedList<>();
+    }
 }

@@ -77,7 +77,8 @@ public class AddMeeting extends AppCompatActivity {
                 foods,
                 place.getText().toString(),
                 calendar.toInstant().toString(),
-                true);
+                true,
+                false);
         info = Meeting.uploadMeeting(newMeeting);
         Toast.makeText(this,info,Toast.LENGTH_SHORT).show();
 
