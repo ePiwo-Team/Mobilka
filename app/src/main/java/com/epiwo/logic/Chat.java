@@ -35,7 +35,7 @@ public class Chat {
     public List<Balloon> talk = new LinkedList<>();
     public boolean onScreen = false;
     public ChatAdapter myAdapter;
-    public boolean watchChat=false;
+    public boolean watchChat;
 
     private String  lastText;
     private String  lastAuthor;
@@ -73,9 +73,7 @@ public class Chat {
         }
 
         public boolean itsMe () {
-            if(userId == User.me.id)
-                return true;
-            return false;
+            return (userId == User.me.id);
         }
 
     }
@@ -176,7 +174,7 @@ public class Chat {
         PendingIntent pendingIntent = PendingIntent.getActivity(MainPage.page,0,intent,0);
 
 
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(MainPage.page, "1")
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(MainPage.page,MainPage.page.getString(R.string.app_name))
                     .setSmallIcon(R.drawable.chat_teardrop_dots)
                     .setContentTitle(meetingName)
                     .setContentText(text)
