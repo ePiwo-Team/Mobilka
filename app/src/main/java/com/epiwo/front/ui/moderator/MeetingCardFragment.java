@@ -83,6 +83,8 @@ public class MeetingCardFragment extends Fragment {
         }else{
             leave.setText(R.string.leave_meeting);
 
+
+
             leave.setOnClickListener(v -> {
                 Meeting.current.leaveMeeting();
                 Toast.makeText(MainPage.page, "Opuszczono spotkanie", Toast.LENGTH_SHORT).show();

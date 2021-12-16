@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         CharSequence text = "slabo";
 
 
+
+
         if (user.test()) {
             text = Siec.echo();
             Intent meetings = new Intent(this, MainPage.class);

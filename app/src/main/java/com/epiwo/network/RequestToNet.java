@@ -48,8 +48,6 @@ public class RequestToNet extends AsyncTask<String, String, String> {
                 writer.write(strings[2]);
                 writer.flush();
                 writer.close();
-//                os.writeBytes(strings[2]);
-//                os.flush();
                 os.close();
             }
 
